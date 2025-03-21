@@ -67,6 +67,8 @@ namespace EnvVarChecker
 
             ENV1 = detail;
 
+            groupBox2.Text = ENV1.ConnectionName;
+
             ExecuteMethod(GetSolutions);
 
             if (mySettings != null && detail != null)
@@ -209,10 +211,13 @@ namespace EnvVarChecker
             public Guid Id { get; set; }
             public Guid ValueId { get; set; }
             public string DisplayName { get; set; }
+            public bool DisplayName_modif { get; set; }
             public string SchemaName { get; set; }
             public string DataType { get; set; }
             public string DefaultValue { get; set; }
+            public bool DefaultValue_modif { get; set; }
             public string CurrentValue { get; set; }
+            public bool CurrentValue_modif { get; set; }
         }
 
         private EnvVarInfo EnvVar1_Info = new EnvVarInfo();
@@ -246,7 +251,6 @@ namespace EnvVarChecker
                     var envVar = service.RetrieveMultiple(new FetchExpression(fetchEnvVar)).Entities.FirstOrDefault();
                     if (envVar == null)
                     {
-                        ClearInfo(env_num);
                         return;
                     }
 
@@ -289,6 +293,7 @@ namespace EnvVarChecker
                     var result = args.Result as EnvVarInfo;
 
                     if (result != null) SetInfo(result, env_num);
+                    else ClearInfo(env_num);
                 }
             });
         }
@@ -308,6 +313,13 @@ namespace EnvVarChecker
                 displayName2.Text = "";
                 defaultValue2.Text = "";
                 currentValue2.Text = "";
+
+                displayName2.Enabled = false;
+                defaultValue2.Enabled = false;
+                currentValue2.Enabled = false;
+
+                refresh2.Enabled = false;
+                save2_btn.Enabled = false;
             }
             else if (env_num == 3)
             {
@@ -315,6 +327,13 @@ namespace EnvVarChecker
                 displayName3.Text = "";
                 defaultValue3.Text = "";
                 currentValue3.Text = "";
+
+                displayName3.Enabled = false;
+                defaultValue3.Enabled = false;
+                currentValue3.Enabled = false;
+
+                refresh3.Enabled = false;
+                save3_btn.Enabled = false;
             }
         }
 
@@ -333,6 +352,13 @@ namespace EnvVarChecker
                 displayName2.Text = info.DisplayName;
                 defaultValue2.Text = info.DefaultValue;
                 currentValue2.Text = info.CurrentValue;
+
+                displayName2.Enabled = true;
+                defaultValue2.Enabled = true;
+                currentValue2.Enabled = true;
+
+                refresh2.Enabled = true;
+                save2_btn.Enabled = true;
             }
             else if (env_num == 3)
             {
@@ -340,12 +366,14 @@ namespace EnvVarChecker
                 displayName3.Text = info.DisplayName;
                 defaultValue3.Text = info.DefaultValue;
                 currentValue3.Text = info.CurrentValue;
+
+                displayName3.Enabled = true;
+                defaultValue3.Enabled = true;
+                currentValue3.Enabled = true;
+
+                refresh3.Enabled = true;
+                save3_btn.Enabled = true;
             }
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
         }
 
         private void UpdateEnvVar(IOrganizationService service, EnvVarInfo info)
@@ -357,11 +385,11 @@ namespace EnvVarChecker
                 Work = (worker, args) =>
                 {
                     var envVar = new Entity("environmentvariabledefinition", info.Id);
-                    envVar["displayname"] = info.DisplayName;
-                    envVar["defaultvalue"] = info.DefaultValue;
-                    service.Update(envVar);
+                    if (info.DisplayName_modif) envVar["displayname"] = info.DisplayName;
+                    if (info.DefaultValue_modif) envVar["defaultvalue"] = info.DefaultValue;
+                    if (info.DisplayName_modif || info.DefaultValue_modif) service.Update(envVar);
 
-                    if (info.CurrentValue != "")
+                    if (info.CurrentValue_modif)
                     {
                         var envVarValue = new Entity("environmentvariablevalue");
                         if (info.ValueId != null) envVarValue.Id = info.ValueId;
@@ -383,42 +411,66 @@ namespace EnvVarChecker
                     {
                         MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+
+                    info.DisplayName_modif = false;
+                    info.DefaultValue_modif = false;
+                    info.CurrentValue_modif = false;
                 }
             });
         }
 
-        private void saveBtn_env1_Click(object sender, EventArgs e)
+        private void save1_btn_Click(object sender, EventArgs e)
         {
             var envVar = schemaName1.Text;
             var displayName = displayName1.Text;
             var defaultValue = defaultValue1.Text;
             var currentValue = currentValue1.Text;
 
-            EnvVar1_Info.DisplayName = displayName;
-            EnvVar1_Info.DefaultValue = defaultValue;
-            EnvVar1_Info.CurrentValue = currentValue;
+            EnvVar1_Info.DisplayName_modif = EnvVar1_Info.DisplayName != displayName;
+            EnvVar1_Info.DefaultValue_modif = EnvVar1_Info.DefaultValue != defaultValue;
+            EnvVar1_Info.CurrentValue_modif = EnvVar1_Info.CurrentValue != currentValue;
+
+            if (EnvVar1_Info.DisplayName_modif) EnvVar1_Info.DisplayName = displayName;
+            if (EnvVar1_Info.DefaultValue_modif) EnvVar1_Info.DefaultValue = defaultValue;
+            if (EnvVar1_Info.CurrentValue_modif) EnvVar1_Info.CurrentValue = currentValue;
 
             ExecuteMethod(() => UpdateEnvVar(Service, EnvVar1_Info));
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void save2_btn_Click(object sender, EventArgs e)
         {
+            var envVar = schemaName2.Text;
+            var displayName = displayName2.Text;
+            var defaultValue = defaultValue2.Text;
+            var currentValue = currentValue2.Text;
 
+            EnvVar2_Info.DisplayName_modif = EnvVar2_Info.DisplayName != displayName;
+            EnvVar2_Info.DefaultValue_modif = EnvVar2_Info.DefaultValue != defaultValue;
+            EnvVar2_Info.CurrentValue_modif = EnvVar2_Info.CurrentValue != currentValue;
+
+            if (EnvVar2_Info.DisplayName_modif) EnvVar2_Info.DisplayName = displayName;
+            if (EnvVar2_Info.DefaultValue_modif) EnvVar2_Info.DefaultValue = defaultValue;
+            if (EnvVar2_Info.CurrentValue_modif) EnvVar2_Info.CurrentValue = currentValue;
+
+            ExecuteMethod(() => UpdateEnvVar(SERVICE2, EnvVar2_Info));
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        private void save3_btn_Click(object sender, EventArgs e)
         {
+            var envVar = schemaName3.Text;
+            var displayName = displayName3.Text;
+            var defaultValue = defaultValue3.Text;
+            var currentValue = currentValue3.Text;
 
-        }
+            EnvVar3_Info.DisplayName_modif = EnvVar3_Info.DisplayName != displayName;
+            EnvVar3_Info.DefaultValue_modif = EnvVar3_Info.DefaultValue != defaultValue;
+            EnvVar3_Info.CurrentValue_modif = EnvVar3_Info.CurrentValue != currentValue;
 
-        private void label5_Click(object sender, EventArgs e)
-        {
+            if (EnvVar3_Info.DisplayName_modif) EnvVar3_Info.DisplayName = displayName;
+            if (EnvVar3_Info.DefaultValue_modif) EnvVar3_Info.DefaultValue = defaultValue;
+            if (EnvVar3_Info.CurrentValue_modif) EnvVar3_Info.CurrentValue = currentValue;
 
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
+            ExecuteMethod(() => UpdateEnvVar(SERVICE3, EnvVar3_Info));
         }
 
         private void SolutionsCombobox_SelectedIndexChanged(object sender, EventArgs e)
@@ -426,24 +478,34 @@ namespace EnvVarChecker
             ExecuteMethod(GetEnvVars);
         }
 
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox4_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void LoadSolutionsBtn_Click(object sender, EventArgs e)
         {
             ExecuteMethod(GetSolutions);
         }
 
+        private void LoadVars()
+        {
+
+        }
+
         private void EnvVarsCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ExecuteMethod(() => FetchEnvVarInfo(Service, 1));
+
+            if (ENV2 != null)
+            {
+                ExecuteMethod(() => FetchEnvVarInfo(SERVICE2, 2));
+            }
+
+            if (ENV3 != null)
+            {
+                ExecuteMethod(() => FetchEnvVarInfo(SERVICE3, 3));
+            }
+        }
+
+        private void loadVarsBtn_Click(object sender, EventArgs e)
+        {
+            ExecuteMethod(GetEnvVars);
         }
 
         private void selectEnv2Btn_Click(object sender, EventArgs e)
@@ -456,7 +518,7 @@ namespace EnvVarChecker
 
                 SERVICE2 = ENV2.GetCrmServiceClient();
 
-                env2_label.Text = ENV2.ConnectionName;
+                groupBox3.Text = ENV2.ConnectionName;
 
                 ExecuteMethod(() => FetchEnvVarInfo(SERVICE2, 2));
             }
@@ -473,7 +535,7 @@ namespace EnvVarChecker
 
                 SERVICE3 = ENV3.GetCrmServiceClient();
 
-                env3_label.Text = ENV3.ConnectionName;
+                groupBox4.Text = ENV3.ConnectionName;
 
                 ExecuteMethod(() => FetchEnvVarInfo(SERVICE3, 3));
             }
@@ -481,16 +543,34 @@ namespace EnvVarChecker
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            var byId = idMatchCheckbox.Checked;
-
-            nameMatchCheckbox.Checked = !byId;
+            nameMatchCheckbox.Checked = !idMatchCheckbox.Checked;
         }
 
         private void nameMatchCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            var byName = nameMatchCheckbox.Checked;
+            idMatchCheckbox.Checked = !nameMatchCheckbox.Checked;
+        }
 
-           idMatchCheckbox.Checked = !byName;
+        private void refresh1_Click(object sender, EventArgs e)
+        {
+            ExecuteMethod(() => FetchEnvVarInfo(Service, 1));
+        }
+
+        private void refresh2_Click(object sender, EventArgs e)
+        {
+            if (ENV2 == null) return;
+            ExecuteMethod(() => FetchEnvVarInfo(SERVICE2, 2));
+        }
+
+        private void refresh3_Click(object sender, EventArgs e)
+        {
+            if (ENV3 == null) return;
+            ExecuteMethod(() => FetchEnvVarInfo(SERVICE3, 3));
+        }
+
+        private void toolStripMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }
