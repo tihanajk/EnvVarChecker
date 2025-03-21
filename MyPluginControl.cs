@@ -29,6 +29,9 @@ namespace EnvVarChecker
         private ConnectionDetail ENV2;
         private ConnectionDetail ENV3;
 
+        private IOrganizationService SERVICE2;
+        private IOrganizationService SERVICE3;
+
         private void MyPluginControl_Load(object sender, EventArgs e)
         {
             // Loads or creates the settings for the plugin
@@ -76,6 +79,7 @@ namespace EnvVarChecker
         {
             public string Name { get; set; }
             public string Value { get; set; }
+            public string LogName { get; set; }
         }
         private void GetSolutions()
         {
@@ -188,6 +192,7 @@ namespace EnvVarChecker
                             {
                                 Name = name,
                                 Value = envVarId,
+                                LogName = (string)envVar["schemaname"],
                             });
                         }
 
@@ -201,6 +206,8 @@ namespace EnvVarChecker
 
         class EnvVarInfo
         {
+            public Guid Id { get; set; }
+            public Guid ValueId { get; set; }
             public string DisplayName { get; set; }
             public string SchemaName { get; set; }
             public string DataType { get; set; }
@@ -208,9 +215,22 @@ namespace EnvVarChecker
             public string CurrentValue { get; set; }
         }
 
-        private void FetchEnvVarInfo()
+        private EnvVarInfo EnvVar1_Info = new EnvVarInfo();
+        private EnvVarInfo EnvVar2_Info = new EnvVarInfo();
+        private EnvVarInfo EnvVar3_Info = new EnvVarInfo();
+
+        private void FetchEnvVarInfo(IOrganizationService service, int env_num)
         {
-            var envVarId = (EnvVarsCombobox.SelectedItem as ListObject).Value;
+            var EV = EnvVarsCombobox.SelectedItem as ListObject;
+
+            var envVarFilter =
+                idMatchCheckbox.Checked ?
+                $@"<filter>
+                    <condition attribute='environmentvariabledefinitionid' operator='eq' value='{EV.Value}' />
+                </filter>" :
+                $@"<filter>
+                    <condition attribute='schemaname' operator='eq' value='{EV.LogName}' />
+                </filter>";
 
             WorkAsync(new WorkAsyncInfo()
             {
@@ -218,26 +238,45 @@ namespace EnvVarChecker
                 AsyncArgument = null,
                 Work = (worker, args) =>
                 {
+                    var fetchEnvVar = $@"<fetch top='1'>
+                                          <entity name='environmentvariabledefinition'>
+                                            {envVarFilter}
+                                          </entity>
+                                        </fetch>";
+                    var envVar = service.RetrieveMultiple(new FetchExpression(fetchEnvVar)).Entities.FirstOrDefault();
+                    if (envVar == null)
+                    {
+                        ClearInfo(env_num);
+                        return;
+                    }
+
                     var fetchValue = $@"<fetch top='1'>
                                           <entity name='environmentvariablevalue'>
                                             <attribute name='value' />
                                             <filter>
-                                              <condition attribute='environmentvariabledefinitionid' operator='eq' value='{envVarId}' />
+                                              <condition attribute='environmentvariabledefinitionid' operator='eq' value='{envVar.Id}' />
                                             </filter>
                                           </entity>
                                         </fetch>";
-                    var value = Service.RetrieveMultiple(new FetchExpression(fetchValue)).Entities.FirstOrDefault();
+                    var value = service.RetrieveMultiple(new FetchExpression(fetchValue)).Entities.FirstOrDefault();
 
-                    var envVar = Service.Retrieve("environmentvariabledefinition", new Guid(envVarId), new ColumnSet(true));
 
                     var envVarInfo = new EnvVarInfo() { };
+                    envVarInfo.Id = envVar.Id;
                     envVarInfo.SchemaName = (string)envVar["schemaname"];
                     envVarInfo.DisplayName = (string)envVar["displayname"];
                     envVarInfo.DataType = (string)envVar.FormattedValues["type"];
                     envVarInfo.DefaultValue = envVar.Contains("defaultvalue") ? (envVar["defaultvalue"]).ToString() : null;
 
-                    if (value != null) envVarInfo.CurrentValue = (string)value["value"];
+                    if (value != null)
+                    {
+                        envVarInfo.ValueId = value.Id;
+                        envVarInfo.CurrentValue = (string)value["value"];
+                    }
 
+                    if (env_num == 1) EnvVar1_Info = envVarInfo;
+                    else if (env_num == 2) EnvVar2_Info = envVarInfo;
+                    else if (env_num == 3) EnvVar3_Info = envVarInfo;
 
                     args.Result = envVarInfo;
                 },
@@ -249,12 +288,59 @@ namespace EnvVarChecker
                     }
                     var result = args.Result as EnvVarInfo;
 
-                    schemaName1.Text = result.SchemaName;
-                    displayName1.Text = result.DisplayName;
-                    defaultValue1.Text = result.DefaultValue;
-                    currentValue1.Text = result.CurrentValue;
+                    if (result != null) SetInfo(result, env_num);
                 }
             });
+        }
+
+        private void ClearInfo(int env_num)
+        {
+            if (env_num == 1)
+            {
+                schemaName1.Text = "";
+                displayName1.Text = "";
+                defaultValue1.Text = "";
+                currentValue1.Text = "";
+            }
+            else if (env_num == 2)
+            {
+                schemaName2.Text = "";
+                displayName2.Text = "";
+                defaultValue2.Text = "";
+                currentValue2.Text = "";
+            }
+            else if (env_num == 3)
+            {
+                schemaName3.Text = "";
+                displayName3.Text = "";
+                defaultValue3.Text = "";
+                currentValue3.Text = "";
+            }
+        }
+
+        private void SetInfo(EnvVarInfo info, int env_num)
+        {
+            if (env_num == 1)
+            {
+                schemaName1.Text = info.SchemaName;
+                displayName1.Text = info.DisplayName;
+                defaultValue1.Text = info.DefaultValue;
+                currentValue1.Text = info.CurrentValue;
+            }
+            else if (env_num == 2)
+            {
+                schemaName2.Text = info.SchemaName;
+                displayName2.Text = info.DisplayName;
+                defaultValue2.Text = info.DefaultValue;
+                currentValue2.Text = info.CurrentValue;
+            }
+            else if (env_num == 3)
+            {
+                schemaName3.Text = info.SchemaName;
+                displayName3.Text = info.DisplayName;
+                defaultValue3.Text = info.DefaultValue;
+                currentValue3.Text = info.CurrentValue;
+            }
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -262,9 +348,57 @@ namespace EnvVarChecker
 
         }
 
+        private void UpdateEnvVar(IOrganizationService service, EnvVarInfo info)
+        {
+            WorkAsync(new WorkAsyncInfo()
+            {
+                Message = "Updating env var info",
+                AsyncArgument = null,
+                Work = (worker, args) =>
+                {
+                    var envVar = new Entity("environmentvariabledefinition", info.Id);
+                    envVar["displayname"] = info.DisplayName;
+                    envVar["defaultvalue"] = info.DefaultValue;
+                    service.Update(envVar);
+
+                    if (info.CurrentValue != "")
+                    {
+                        var envVarValue = new Entity("environmentvariablevalue");
+                        if (info.ValueId != null) envVarValue.Id = info.ValueId;
+                        envVarValue["value"] = info.CurrentValue;
+
+                        if (info.ValueId == Guid.Empty)
+                        {
+                            envVarValue["environmentvariabledefinitionid"] = new EntityReference(envVar.LogicalName, envVar.Id);
+                            var id = service.Create(envVarValue);
+                            info.ValueId = id;
+                        }
+                        else service.Update(envVarValue);
+
+                    }
+                },
+                PostWorkCallBack = (args) =>
+                {
+                    if (args.Error != null)
+                    {
+                        MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            });
+        }
+
         private void saveBtn_env1_Click(object sender, EventArgs e)
         {
+            var envVar = schemaName1.Text;
+            var displayName = displayName1.Text;
+            var defaultValue = defaultValue1.Text;
+            var currentValue = currentValue1.Text;
 
+            EnvVar1_Info.DisplayName = displayName;
+            EnvVar1_Info.DefaultValue = defaultValue;
+            EnvVar1_Info.CurrentValue = currentValue;
+
+            ExecuteMethod(() => UpdateEnvVar(Service, EnvVar1_Info));
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -309,7 +443,7 @@ namespace EnvVarChecker
 
         private void EnvVarsCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ExecuteMethod(FetchEnvVarInfo);
+            ExecuteMethod(() => FetchEnvVarInfo(Service, 1));
         }
 
         private void selectEnv2Btn_Click(object sender, EventArgs e)
@@ -320,9 +454,43 @@ namespace EnvVarChecker
                 var selectedConnections = connectionSelector.SelectedConnections;
                 ENV2 = selectedConnections[0];
 
-                selectEnv2Btn.Text = ENV2.ConnectionName;
+                SERVICE2 = ENV2.GetCrmServiceClient();
+
+                env2_label.Text = ENV2.ConnectionName;
+
+                ExecuteMethod(() => FetchEnvVarInfo(SERVICE2, 2));
             }
 
+        }
+
+        private void selectEnv3Btn_Click(object sender, EventArgs e)
+        {
+            var connectionSelector = new ConnectionSelector();
+            if (connectionSelector.ShowDialog() == DialogResult.OK)
+            {
+                var selectedConnections = connectionSelector.SelectedConnections;
+                ENV3 = selectedConnections[0];
+
+                SERVICE3 = ENV3.GetCrmServiceClient();
+
+                env3_label.Text = ENV3.ConnectionName;
+
+                ExecuteMethod(() => FetchEnvVarInfo(SERVICE3, 3));
+            }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            var byId = idMatchCheckbox.Checked;
+
+            nameMatchCheckbox.Checked = !byId;
+        }
+
+        private void nameMatchCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            var byName = nameMatchCheckbox.Checked;
+
+           idMatchCheckbox.Checked = !byName;
         }
     }
 }
