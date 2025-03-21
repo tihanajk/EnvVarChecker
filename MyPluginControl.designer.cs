@@ -96,7 +96,6 @@
             this.toolStripMenu.Size = new System.Drawing.Size(1063, 25);
             this.toolStripMenu.TabIndex = 4;
             this.toolStripMenu.Text = "toolStrip1";
-            this.toolStripMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripMenu_ItemClicked);
             // 
             // tssSeparator1
             // 
@@ -127,6 +126,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.BackColor = System.Drawing.SystemColors.HighlightText;
             this.groupBox1.Controls.Add(this.idMatchCheckbox);
             this.groupBox1.Controls.Add(this.nameMatchCheckbox);
             this.groupBox1.Controls.Add(this.label15);
@@ -175,9 +175,9 @@
             this.label15.Location = new System.Drawing.Point(606, 16);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(216, 13);
+            this.label15.Size = new System.Drawing.Size(217, 13);
             this.label15.TabIndex = 7;
-            this.label15.Text = "Match env vars in different environments by:";
+            this.label15.Text = "Match variables in different environments by:";
             // 
             // label8
             // 
@@ -185,9 +185,9 @@
             this.label8.Location = new System.Drawing.Point(310, 16);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(47, 13);
+            this.label8.Size = new System.Drawing.Size(109, 13);
             this.label8.TabIndex = 4;
-            this.label8.Text = "Env var:";
+            this.label8.Text = "Environment variable:";
             // 
             // EnvVarsCombobox
             // 
@@ -223,6 +223,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox2.BackColor = System.Drawing.SystemColors.HighlightText;
             this.groupBox2.Controls.Add(this.currentValue1);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.defaultValue1);
@@ -237,7 +238,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(370, 467);
+            this.groupBox2.Size = new System.Drawing.Size(402, 467);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Source env";
@@ -250,7 +251,7 @@
             this.currentValue1.Margin = new System.Windows.Forms.Padding(2);
             this.currentValue1.Multiline = true;
             this.currentValue1.Name = "currentValue1";
-            this.currentValue1.Size = new System.Drawing.Size(360, 73);
+            this.currentValue1.Size = new System.Drawing.Size(392, 73);
             this.currentValue1.TabIndex = 10;
             // 
             // label6
@@ -271,7 +272,7 @@
             this.defaultValue1.Margin = new System.Windows.Forms.Padding(2);
             this.defaultValue1.Multiline = true;
             this.defaultValue1.Name = "defaultValue1";
-            this.defaultValue1.Size = new System.Drawing.Size(360, 70);
+            this.defaultValue1.Size = new System.Drawing.Size(392, 70);
             this.defaultValue1.TabIndex = 8;
             // 
             // label5
@@ -291,7 +292,7 @@
             this.displayName1.Location = new System.Drawing.Point(6, 109);
             this.displayName1.Margin = new System.Windows.Forms.Padding(2);
             this.displayName1.Name = "displayName1";
-            this.displayName1.Size = new System.Drawing.Size(360, 20);
+            this.displayName1.Size = new System.Drawing.Size(392, 20);
             this.displayName1.TabIndex = 6;
             // 
             // schemaName1
@@ -302,7 +303,7 @@
             this.schemaName1.Location = new System.Drawing.Point(6, 60);
             this.schemaName1.Margin = new System.Windows.Forms.Padding(2);
             this.schemaName1.Name = "schemaName1";
-            this.schemaName1.Size = new System.Drawing.Size(360, 20);
+            this.schemaName1.Size = new System.Drawing.Size(392, 20);
             this.schemaName1.TabIndex = 5;
             // 
             // label4
@@ -328,7 +329,7 @@
             // refresh1
             // 
             this.refresh1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.refresh1.Location = new System.Drawing.Point(256, 17);
+            this.refresh1.Location = new System.Drawing.Point(288, 17);
             this.refresh1.Margin = new System.Windows.Forms.Padding(2);
             this.refresh1.Name = "refresh1";
             this.refresh1.Size = new System.Drawing.Size(53, 21);
@@ -340,7 +341,7 @@
             // save1_btn
             // 
             this.save1_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.save1_btn.Location = new System.Drawing.Point(313, 17);
+            this.save1_btn.Location = new System.Drawing.Point(345, 17);
             this.save1_btn.Margin = new System.Windows.Forms.Padding(2);
             this.save1_btn.Name = "save1_btn";
             this.save1_btn.Size = new System.Drawing.Size(53, 21);
@@ -353,6 +354,7 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox3.BackColor = System.Drawing.SystemColors.HighlightText;
             this.groupBox3.Controls.Add(this.selectEnv2Btn);
             this.groupBox3.Controls.Add(this.currentValue2);
             this.groupBox3.Controls.Add(this.label1);
@@ -365,11 +367,11 @@
             this.groupBox3.Controls.Add(this.refresh2);
             this.groupBox3.Controls.Add(this.save2_btn);
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox3.Location = new System.Drawing.Point(376, 101);
+            this.groupBox3.Location = new System.Drawing.Point(408, 101);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(337, 467);
+            this.groupBox3.Size = new System.Drawing.Size(374, 467);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Env 2";
@@ -394,7 +396,7 @@
             this.currentValue2.Margin = new System.Windows.Forms.Padding(2);
             this.currentValue2.Multiline = true;
             this.currentValue2.Name = "currentValue2";
-            this.currentValue2.Size = new System.Drawing.Size(327, 73);
+            this.currentValue2.Size = new System.Drawing.Size(364, 73);
             this.currentValue2.TabIndex = 10;
             // 
             // label1
@@ -416,7 +418,7 @@
             this.defaultValue2.Margin = new System.Windows.Forms.Padding(2);
             this.defaultValue2.Multiline = true;
             this.defaultValue2.Name = "defaultValue2";
-            this.defaultValue2.Size = new System.Drawing.Size(327, 70);
+            this.defaultValue2.Size = new System.Drawing.Size(364, 70);
             this.defaultValue2.TabIndex = 8;
             // 
             // label2
@@ -437,7 +439,7 @@
             this.displayName2.Location = new System.Drawing.Point(6, 109);
             this.displayName2.Margin = new System.Windows.Forms.Padding(2);
             this.displayName2.Name = "displayName2";
-            this.displayName2.Size = new System.Drawing.Size(327, 20);
+            this.displayName2.Size = new System.Drawing.Size(364, 20);
             this.displayName2.TabIndex = 6;
             // 
             // schemaName2
@@ -448,7 +450,7 @@
             this.schemaName2.Location = new System.Drawing.Point(6, 60);
             this.schemaName2.Margin = new System.Windows.Forms.Padding(2);
             this.schemaName2.Name = "schemaName2";
-            this.schemaName2.Size = new System.Drawing.Size(327, 20);
+            this.schemaName2.Size = new System.Drawing.Size(364, 20);
             this.schemaName2.TabIndex = 5;
             // 
             // label9
@@ -475,7 +477,7 @@
             // 
             this.refresh2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.refresh2.Enabled = false;
-            this.refresh2.Location = new System.Drawing.Point(223, 17);
+            this.refresh2.Location = new System.Drawing.Point(260, 17);
             this.refresh2.Margin = new System.Windows.Forms.Padding(2);
             this.refresh2.Name = "refresh2";
             this.refresh2.Size = new System.Drawing.Size(53, 21);
@@ -488,7 +490,7 @@
             // 
             this.save2_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.save2_btn.Enabled = false;
-            this.save2_btn.Location = new System.Drawing.Point(280, 17);
+            this.save2_btn.Location = new System.Drawing.Point(317, 17);
             this.save2_btn.Margin = new System.Windows.Forms.Padding(2);
             this.save2_btn.Name = "save2_btn";
             this.save2_btn.Size = new System.Drawing.Size(53, 21);
@@ -502,6 +504,7 @@
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBox4.Controls.Add(this.selectEnv3Btn);
             this.groupBox4.Controls.Add(this.currentValue3);
             this.groupBox4.Controls.Add(this.label11);
@@ -513,11 +516,11 @@
             this.groupBox4.Controls.Add(this.label14);
             this.groupBox4.Controls.Add(this.refresh3);
             this.groupBox4.Controls.Add(this.save3_btn);
-            this.groupBox4.Location = new System.Drawing.Point(717, 101);
+            this.groupBox4.Location = new System.Drawing.Point(786, 101);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(344, 467);
+            this.groupBox4.Size = new System.Drawing.Size(275, 467);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Env 3";
@@ -542,7 +545,7 @@
             this.currentValue3.Margin = new System.Windows.Forms.Padding(2);
             this.currentValue3.Multiline = true;
             this.currentValue3.Name = "currentValue3";
-            this.currentValue3.Size = new System.Drawing.Size(337, 73);
+            this.currentValue3.Size = new System.Drawing.Size(268, 73);
             this.currentValue3.TabIndex = 10;
             // 
             // label11
@@ -564,7 +567,7 @@
             this.defaultValue3.Margin = new System.Windows.Forms.Padding(2);
             this.defaultValue3.Multiline = true;
             this.defaultValue3.Name = "defaultValue3";
-            this.defaultValue3.Size = new System.Drawing.Size(334, 70);
+            this.defaultValue3.Size = new System.Drawing.Size(265, 70);
             this.defaultValue3.TabIndex = 8;
             // 
             // label12
@@ -585,7 +588,7 @@
             this.displayName3.Location = new System.Drawing.Point(6, 109);
             this.displayName3.Margin = new System.Windows.Forms.Padding(2);
             this.displayName3.Name = "displayName3";
-            this.displayName3.Size = new System.Drawing.Size(334, 20);
+            this.displayName3.Size = new System.Drawing.Size(265, 20);
             this.displayName3.TabIndex = 6;
             // 
             // schemaName3
@@ -596,7 +599,7 @@
             this.schemaName3.Location = new System.Drawing.Point(6, 60);
             this.schemaName3.Margin = new System.Windows.Forms.Padding(2);
             this.schemaName3.Name = "schemaName3";
-            this.schemaName3.Size = new System.Drawing.Size(334, 20);
+            this.schemaName3.Size = new System.Drawing.Size(265, 20);
             this.schemaName3.TabIndex = 5;
             // 
             // label13
@@ -623,7 +626,7 @@
             // 
             this.refresh3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.refresh3.Enabled = false;
-            this.refresh3.Location = new System.Drawing.Point(230, 17);
+            this.refresh3.Location = new System.Drawing.Point(161, 17);
             this.refresh3.Margin = new System.Windows.Forms.Padding(2);
             this.refresh3.Name = "refresh3";
             this.refresh3.Size = new System.Drawing.Size(53, 21);
@@ -636,7 +639,7 @@
             // 
             this.save3_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.save3_btn.Enabled = false;
-            this.save3_btn.Location = new System.Drawing.Point(287, 17);
+            this.save3_btn.Location = new System.Drawing.Point(218, 17);
             this.save3_btn.Margin = new System.Windows.Forms.Padding(2);
             this.save3_btn.Name = "save3_btn";
             this.save3_btn.Size = new System.Drawing.Size(53, 21);
@@ -649,6 +652,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.HighlightText;
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);

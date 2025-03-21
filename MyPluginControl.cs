@@ -544,11 +544,19 @@ namespace EnvVarChecker
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             nameMatchCheckbox.Checked = !idMatchCheckbox.Checked;
+
+            ExecuteMethod(() => FetchEnvVarInfo(Service, 1));
+            if (ENV2 != null) ExecuteMethod(() => FetchEnvVarInfo(SERVICE2, 2));
+            if (ENV3 != null) ExecuteMethod(() => FetchEnvVarInfo(SERVICE3, 3));
         }
 
         private void nameMatchCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             idMatchCheckbox.Checked = !nameMatchCheckbox.Checked;
+
+            ExecuteMethod(() => FetchEnvVarInfo(Service, 1));
+            if (ENV2 != null) ExecuteMethod(() => FetchEnvVarInfo(SERVICE2, 2));
+            if (ENV3 != null) ExecuteMethod(() => FetchEnvVarInfo(SERVICE3, 3));
         }
 
         private void refresh1_Click(object sender, EventArgs e)
@@ -568,9 +576,5 @@ namespace EnvVarChecker
             ExecuteMethod(() => FetchEnvVarInfo(SERVICE3, 3));
         }
 
-        private void toolStripMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
     }
 }
