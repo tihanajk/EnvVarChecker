@@ -23,6 +23,19 @@ namespace EnvVarChecker
         public MyPluginControl()
         {
             InitializeComponent();
+
+            InitializeTooltip();
+        }
+
+        private void InitializeTooltip()
+        {
+            refresh_tooltip.SetToolTip(refresh1, "Refresh variable info");
+            refresh_tooltip.SetToolTip(refresh2, "Refresh variable info");
+            refresh_tooltip.SetToolTip(refresh3, "Refresh variable info");
+
+            save_tooltip.SetToolTip(save1_btn, "Save variable info");
+            save_tooltip.SetToolTip(save2_btn, "Save variable info");
+            save_tooltip.SetToolTip(save3_btn, "Save variable info");
         }
 
         private ConnectionDetail ENV1;
@@ -624,6 +637,11 @@ namespace EnvVarChecker
 
 
             }
+
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
 
         }
     }

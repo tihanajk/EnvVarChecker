@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewEnvVarDialog));
             this.label1 = new System.Windows.Forms.Label();
             this.displayNameText = new System.Windows.Forms.TextBox();
             this.schemaNameText = new System.Windows.Forms.TextBox();
@@ -50,9 +51,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(9, 15);
+            this.label1.Location = new System.Drawing.Point(16, 28);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 13);
+            this.label1.Size = new System.Drawing.Size(130, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Display name";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -60,17 +62,19 @@
             // displayNameText
             // 
             this.displayNameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.displayNameText.Location = new System.Drawing.Point(12, 31);
+            this.displayNameText.Location = new System.Drawing.Point(22, 57);
+            this.displayNameText.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.displayNameText.Name = "displayNameText";
-            this.displayNameText.Size = new System.Drawing.Size(517, 20);
+            this.displayNameText.Size = new System.Drawing.Size(944, 29);
             this.displayNameText.TabIndex = 1;
             // 
             // schemaNameText
             // 
             this.schemaNameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.schemaNameText.Location = new System.Drawing.Point(12, 79);
+            this.schemaNameText.Location = new System.Drawing.Point(22, 146);
+            this.schemaNameText.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.schemaNameText.Name = "schemaNameText";
-            this.schemaNameText.Size = new System.Drawing.Size(517, 20);
+            this.schemaNameText.Size = new System.Drawing.Size(944, 29);
             this.schemaNameText.TabIndex = 13;
             this.schemaNameText.TextChanged += new System.EventHandler(this.schemaNameText_TextChanged);
             // 
@@ -78,9 +82,10 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(9, 63);
+            this.label7.Location = new System.Drawing.Point(16, 116);
+            this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(126, 13);
+            this.label7.Size = new System.Drawing.Size(232, 25);
             this.label7.TabIndex = 12;
             this.label7.Text = "Name (add the prefix too)";
             this.label7.Click += new System.EventHandler(this.label7_Click);
@@ -89,9 +94,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(9, 225);
+            this.label2.Location = new System.Drawing.Point(16, 415);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 13);
+            this.label2.Size = new System.Drawing.Size(101, 25);
             this.label2.TabIndex = 16;
             this.label2.Text = "Data type:";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -99,10 +105,11 @@
             // descriptionText
             // 
             this.descriptionText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.descriptionText.Location = new System.Drawing.Point(12, 128);
+            this.descriptionText.Location = new System.Drawing.Point(22, 236);
+            this.descriptionText.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.descriptionText.Multiline = true;
             this.descriptionText.Name = "descriptionText";
-            this.descriptionText.Size = new System.Drawing.Size(517, 83);
+            this.descriptionText.Size = new System.Drawing.Size(944, 150);
             this.descriptionText.TabIndex = 15;
             this.descriptionText.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
@@ -110,9 +117,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(9, 112);
+            this.label3.Location = new System.Drawing.Point(16, 207);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.Size = new System.Drawing.Size(115, 25);
             this.label3.TabIndex = 14;
             this.label3.Text = "Description:";
             // 
@@ -120,45 +128,50 @@
             // 
             this.dataTypeOption.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dataTypeOption.FormattingEnabled = true;
-            this.dataTypeOption.Location = new System.Drawing.Point(12, 241);
+            this.dataTypeOption.Location = new System.Drawing.Point(22, 445);
+            this.dataTypeOption.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.dataTypeOption.Name = "dataTypeOption";
-            this.dataTypeOption.Size = new System.Drawing.Size(517, 21);
+            this.dataTypeOption.Size = new System.Drawing.Size(944, 32);
             this.dataTypeOption.TabIndex = 17;
             this.dataTypeOption.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // currentValueText
             // 
             this.currentValueText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.currentValueText.Location = new System.Drawing.Point(11, 342);
+            this.currentValueText.Location = new System.Drawing.Point(20, 631);
+            this.currentValueText.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.currentValueText.Name = "currentValueText";
-            this.currentValueText.Size = new System.Drawing.Size(518, 20);
+            this.currentValueText.Size = new System.Drawing.Size(946, 29);
             this.currentValueText.TabIndex = 21;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(9, 326);
+            this.label4.Location = new System.Drawing.Point(16, 602);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 13);
+            this.label4.Size = new System.Drawing.Size(135, 25);
             this.label4.TabIndex = 20;
             this.label4.Text = "Current value:";
             // 
             // defaultValueText
             // 
             this.defaultValueText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.defaultValueText.Location = new System.Drawing.Point(11, 291);
+            this.defaultValueText.Location = new System.Drawing.Point(20, 537);
+            this.defaultValueText.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.defaultValueText.Name = "defaultValueText";
-            this.defaultValueText.Size = new System.Drawing.Size(518, 20);
+            this.defaultValueText.Size = new System.Drawing.Size(946, 29);
             this.defaultValueText.TabIndex = 19;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(9, 275);
+            this.label5.Location = new System.Drawing.Point(16, 508);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 13);
+            this.label5.Size = new System.Drawing.Size(131, 25);
             this.label5.TabIndex = 18;
             this.label5.Text = "Default value:";
             this.label5.Click += new System.EventHandler(this.label5_Click);
@@ -169,9 +182,10 @@
             this.destinationEnvs.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.destinationEnvs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.destinationEnvs.FormattingEnabled = true;
-            this.destinationEnvs.Location = new System.Drawing.Point(11, 393);
+            this.destinationEnvs.Location = new System.Drawing.Point(20, 726);
+            this.destinationEnvs.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.destinationEnvs.Name = "destinationEnvs";
-            this.destinationEnvs.Size = new System.Drawing.Size(238, 90);
+            this.destinationEnvs.Size = new System.Drawing.Size(436, 156);
             this.destinationEnvs.TabIndex = 22;
             this.destinationEnvs.SelectedIndexChanged += new System.EventHandler(this.destinationEnvs_SelectedIndexChanged);
             // 
@@ -179,9 +193,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label6.Location = new System.Drawing.Point(8, 377);
+            this.label6.Location = new System.Drawing.Point(15, 696);
+            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(107, 13);
+            this.label6.Size = new System.Drawing.Size(197, 25);
             this.label6.TabIndex = 23;
             this.label6.Text = "Add to environments:";
             this.label6.Click += new System.EventHandler(this.label6_Click);
@@ -189,10 +204,12 @@
             // cancelBtn
             // 
             this.cancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cancelBtn.Location = new System.Drawing.Point(456, 476);
+            this.cancelBtn.Location = new System.Drawing.Point(832, 800);
+            this.cancelBtn.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(73, 33);
+            this.cancelBtn.Size = new System.Drawing.Size(134, 61);
             this.cancelBtn.TabIndex = 24;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
@@ -203,9 +220,10 @@
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.saveBtn.Enabled = false;
             this.saveBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.saveBtn.Location = new System.Drawing.Point(386, 476);
+            this.saveBtn.Location = new System.Drawing.Point(704, 800);
+            this.saveBtn.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(64, 33);
+            this.saveBtn.Size = new System.Drawing.Size(117, 61);
             this.saveBtn.TabIndex = 25;
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = true;
@@ -213,9 +231,9 @@
             // 
             // NewEnvVarDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(541, 521);
+            this.ClientSize = new System.Drawing.Size(992, 962);
             this.Controls.Add(this.saveBtn);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.label6);
@@ -232,6 +250,8 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.displayNameText);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "NewEnvVarDialog";
             this.Text = "New environment variable";
             this.Load += new System.EventHandler(this.NewEnvVarDialog_Load);
