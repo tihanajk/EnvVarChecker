@@ -576,5 +576,10 @@ namespace EnvVarChecker
             ExecuteMethod(() => FetchEnvVarInfo(SERVICE3, 3));
         }
 
+        private void newEnvVar_btn_Click(object sender, EventArgs e)
+        {
+            var myForm = new NewEnvVarDialog();
+            myForm.Show();
+        }
     }
 }

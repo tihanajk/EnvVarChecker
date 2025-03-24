@@ -33,6 +33,7 @@
             this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.loadVarsBtn = new System.Windows.Forms.ToolStripButton();
+            this.newEnvVar_btn = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.idMatchCheckbox = new System.Windows.Forms.CheckBox();
             this.nameMatchCheckbox = new System.Windows.Forms.CheckBox();
@@ -89,11 +90,12 @@
             this.toolStripMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tssSeparator1,
             this.toolStripButton1,
-            this.loadVarsBtn});
+            this.loadVarsBtn,
+            this.newEnvVar_btn});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
             this.toolStripMenu.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.toolStripMenu.Size = new System.Drawing.Size(1063, 25);
+            this.toolStripMenu.Size = new System.Drawing.Size(1190, 25);
             this.toolStripMenu.TabIndex = 4;
             this.toolStripMenu.Text = "toolStrip1";
             // 
@@ -122,6 +124,16 @@
             this.loadVarsBtn.Text = "Load variables";
             this.loadVarsBtn.Click += new System.EventHandler(this.loadVarsBtn_Click);
             // 
+            // newEnvVar_btn
+            // 
+            this.newEnvVar_btn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.newEnvVar_btn.Image = ((System.Drawing.Image)(resources.GetObject("newEnvVar_btn.Image")));
+            this.newEnvVar_btn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.newEnvVar_btn.Name = "newEnvVar_btn";
+            this.newEnvVar_btn.Size = new System.Drawing.Size(35, 22);
+            this.newEnvVar_btn.Text = "New";
+            this.newEnvVar_btn.Click += new System.EventHandler(this.newEnvVar_btn_Click);
+            // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -138,7 +150,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(1059, 70);
+            this.groupBox1.Size = new System.Drawing.Size(1186, 70);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Info";
@@ -520,7 +532,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(275, 467);
+            this.groupBox4.Size = new System.Drawing.Size(402, 467);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Env 3";
@@ -545,7 +557,7 @@
             this.currentValue3.Margin = new System.Windows.Forms.Padding(2);
             this.currentValue3.Multiline = true;
             this.currentValue3.Name = "currentValue3";
-            this.currentValue3.Size = new System.Drawing.Size(268, 73);
+            this.currentValue3.Size = new System.Drawing.Size(395, 73);
             this.currentValue3.TabIndex = 10;
             // 
             // label11
@@ -567,7 +579,7 @@
             this.defaultValue3.Margin = new System.Windows.Forms.Padding(2);
             this.defaultValue3.Multiline = true;
             this.defaultValue3.Name = "defaultValue3";
-            this.defaultValue3.Size = new System.Drawing.Size(265, 70);
+            this.defaultValue3.Size = new System.Drawing.Size(392, 70);
             this.defaultValue3.TabIndex = 8;
             // 
             // label12
@@ -588,7 +600,7 @@
             this.displayName3.Location = new System.Drawing.Point(6, 109);
             this.displayName3.Margin = new System.Windows.Forms.Padding(2);
             this.displayName3.Name = "displayName3";
-            this.displayName3.Size = new System.Drawing.Size(265, 20);
+            this.displayName3.Size = new System.Drawing.Size(392, 20);
             this.displayName3.TabIndex = 6;
             // 
             // schemaName3
@@ -599,7 +611,7 @@
             this.schemaName3.Location = new System.Drawing.Point(6, 60);
             this.schemaName3.Margin = new System.Windows.Forms.Padding(2);
             this.schemaName3.Name = "schemaName3";
-            this.schemaName3.Size = new System.Drawing.Size(265, 20);
+            this.schemaName3.Size = new System.Drawing.Size(392, 20);
             this.schemaName3.TabIndex = 5;
             // 
             // label13
@@ -626,7 +638,7 @@
             // 
             this.refresh3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.refresh3.Enabled = false;
-            this.refresh3.Location = new System.Drawing.Point(161, 17);
+            this.refresh3.Location = new System.Drawing.Point(288, 17);
             this.refresh3.Margin = new System.Windows.Forms.Padding(2);
             this.refresh3.Name = "refresh3";
             this.refresh3.Size = new System.Drawing.Size(53, 21);
@@ -639,7 +651,7 @@
             // 
             this.save3_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.save3_btn.Enabled = false;
-            this.save3_btn.Location = new System.Drawing.Point(218, 17);
+            this.save3_btn.Location = new System.Drawing.Point(345, 17);
             this.save3_btn.Margin = new System.Windows.Forms.Padding(2);
             this.save3_btn.Name = "save3_btn";
             this.save3_btn.Size = new System.Drawing.Size(53, 21);
@@ -659,7 +671,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStripMenu);
             this.Name = "MyPluginControl";
-            this.Size = new System.Drawing.Size(1063, 570);
+            this.Size = new System.Drawing.Size(1190, 570);
             this.Load += new System.EventHandler(this.MyPluginControl_Load);
             this.toolStripMenu.ResumeLayout(false);
             this.toolStripMenu.PerformLayout();
@@ -724,5 +736,6 @@
         private System.Windows.Forms.CheckBox nameMatchCheckbox;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.CheckBox idMatchCheckbox;
+        private System.Windows.Forms.ToolStripButton newEnvVar_btn;
     }
 }
