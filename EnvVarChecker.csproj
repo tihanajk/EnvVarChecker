@@ -168,6 +168,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateInfo.cs" />
+    <Compile Include="EnvVarInfo.cs" />
+    <Compile Include="ListObject.cs" />
     <Compile Include="MyPlugin.cs" />
     <Compile Include="MyPluginControl.cs">
       <SubType>UserControl</SubType>

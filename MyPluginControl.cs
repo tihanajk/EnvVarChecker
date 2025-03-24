@@ -77,12 +77,7 @@ namespace EnvVarChecker
                 LogInfo("Connection has changed to: {0}", detail.WebApplicationUrl);
             }
         }
-        private class ListObject
-        {
-            public string Name { get; set; }
-            public string Value { get; set; }
-            public string LogName { get; set; }
-        }
+
         private void GetSolutions()
         {
             WorkAsync(new WorkAsyncInfo()
@@ -204,20 +199,6 @@ namespace EnvVarChecker
                     }
                 }
             });
-        }
-
-        class EnvVarInfo
-        {
-            public Guid Id { get; set; }
-            public Guid ValueId { get; set; }
-            public string DisplayName { get; set; }
-            public bool DisplayName_modif { get; set; }
-            public string SchemaName { get; set; }
-            public string DataType { get; set; }
-            public string DefaultValue { get; set; }
-            public bool DefaultValue_modif { get; set; }
-            public string CurrentValue { get; set; }
-            public bool CurrentValue_modif { get; set; }
         }
 
         private EnvVarInfo EnvVar1_Info = new EnvVarInfo();
@@ -576,10 +557,74 @@ namespace EnvVarChecker
             ExecuteMethod(() => FetchEnvVarInfo(SERVICE3, 3));
         }
 
+        private void CreateNewEnvVar(EnvVarInfo info, IOrganizationService service)
+        {
+            WorkAsync(new WorkAsyncInfo()
+            {
+                Message = "Creating env var",
+                AsyncArgument = null,
+                Work = (worker, args) =>
+                {
+                    var newEnvVar = new Entity("environmentvariabledefinition");
+                    newEnvVar.Id = Guid.NewGuid();
+
+                    newEnvVar["schemaname"] = info.SchemaName;
+                    newEnvVar["displayname"] = info.DisplayName;
+                    newEnvVar["type"] = new OptionSetValue(int.Parse(info.DataType));
+                    newEnvVar["defaultvalue"] = info.DefaultValue;
+                    newEnvVar["description"] = info.Description;
+                    service.Create(newEnvVar);
+
+                    if (info.CurrentValue == null || info.CurrentValue == "") return;
+
+                    var newValue = new Entity("environmentvariablevalue");
+                    newValue.Id = Guid.NewGuid();
+                    newValue["environmentvariabledefinitionid"] = new EntityReference(newEnvVar.LogicalName, newEnvVar.Id);
+                    newValue["value"] = info.CurrentValue;
+                    service.Create(newValue);
+
+                    args.Result = newEnvVar;
+                },
+                PostWorkCallBack = (args) =>
+                {
+                    if (args.Error != null)
+                    {
+                        MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    var variable = args.Result as Entity;
+                    MessageBox.Show("Created new variable " + variable.Id);
+                }
+            });
+        }
+
         private void newEnvVar_btn_Click(object sender, EventArgs e)
         {
-            var myForm = new NewEnvVarDialog();
-            myForm.Show();
+            var envs = new List<ConnectionDetail>() { ENV1, ENV2, ENV3 };
+
+            if (envs.Find(env => env != null) == null)
+            {
+                MessageBox.Show("Select at least one environment first");
+                return;
+            }
+
+            using (var form = new NewEnvVarDialog(envs))
+            {
+                if (form.ShowDialog() != DialogResult.OK) return;
+
+                CreateInfo result = form.createInfo;
+
+                var dest = result.dest;
+                foreach (var item in dest)
+                {
+                    ExecuteMethod(() => CreateNewEnvVar(result.info, item.GetCrmServiceClient()));
+                }
+
+                //MessageBox.Show($"You entered: {result}");
+
+
+            }
+
         }
     }
 }
