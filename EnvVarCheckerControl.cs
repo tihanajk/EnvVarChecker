@@ -522,6 +522,12 @@ namespace EnvVarChecker
             ExecuteMethod(GetSolutions);
         }
 
+
+        private void solutionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExecuteMethod(GetSolutions);
+        }
+
         private void EnvVarsCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ExecuteMethod(() => FetchEnvVarInfo(Service, 1));
@@ -538,6 +544,11 @@ namespace EnvVarChecker
         }
 
         private void loadVarsBtn_Click(object sender, EventArgs e)
+        {
+            ExecuteMethod(GetEnvVars);
+        }
+
+        private void variablesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ExecuteMethod(GetEnvVars);
         }
@@ -680,5 +691,7 @@ namespace EnvVarChecker
             }
 
         }
+
+        
     }
 }
