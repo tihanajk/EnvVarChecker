@@ -1,15 +1,7 @@
 ﻿using McTools.Xrm.Connection;
-using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using XrmToolBox.Extensibility;
 
 namespace EnvVarChecker
 {
@@ -21,8 +13,8 @@ namespace EnvVarChecker
             foreach (var item in _envs)
             {
                 if (item == null) continue;
-                var val = new KeyValuePair<string, string>(item.EnvironmentId, item.ConnectionName) { };
-                destinationEnvs.Items.Add(val, false);
+                var val = new KeyValuePair<Guid?, string>(item.ConnectionId, item.ConnectionName) { };
+                if (!destinationEnvs.Items.Contains(val)) destinationEnvs.Items.Add(val, false);
             }
 
             destinationEnvs.DisplayMember = "Value";
@@ -50,48 +42,6 @@ namespace EnvVarChecker
             InitializeDestEnvs();
 
             InitializeDataType();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void NewEnvVarDialog_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void CheckAllowSaveBtn()
@@ -134,14 +84,15 @@ namespace EnvVarChecker
             envVarInfo.Description = descriptionText.Text;
             envVarInfo.DefaultValue = defaultValueText.Text;
             envVarInfo.CurrentValue = currentValueText.Text;
-            envVarInfo.DataType = (dataTypeOption.SelectedItem as ListObject).Value;
+            envVarInfo.DataType = int.Parse((dataTypeOption.SelectedItem as ListObject).Value);
+            envVarInfo.DataType_formatted = (dataTypeOption.SelectedItem as ListObject).Name;
 
             var dest = new List<ConnectionDetail>();
             foreach (var item in destinationEnvs.CheckedItems)
             {
-                if (item is KeyValuePair<string, string> i)
+                if (item is KeyValuePair<Guid?, string> i)
                 {
-                    dest.Add(_envs.Find(env => env != null && env?.EnvironmentId == i.Key));
+                    dest.Add(_envs.Find(env => env != null && env?.ConnectionId == i.Key));
                 }
             }
             createInfo = new CreateInfo();

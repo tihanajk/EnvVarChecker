@@ -263,8 +263,10 @@ namespace EnvVarChecker
                     envVarInfo.Id = envVar.Id;
                     envVarInfo.SchemaName = (string)envVar["schemaname"];
                     envVarInfo.DisplayName = (string)envVar["displayname"];
-                    envVarInfo.DataType = (string)envVar.FormattedValues["type"];
+                    envVarInfo.DataType = ((OptionSetValue)envVar["type"]).Value;
+                    envVarInfo.DataType_formatted = envVar.FormattedValues["type"];
                     envVarInfo.DefaultValue = envVar.Contains("defaultvalue") ? (envVar["defaultvalue"]).ToString() : null;
+                    envVarInfo.Description = envVar.Contains("description") ? (string)envVar["description"] : "";
 
                     if (value != null)
                     {
@@ -300,6 +302,16 @@ namespace EnvVarChecker
                 displayName1.Text = "";
                 defaultValue1.Text = "";
                 currentValue1.Text = "";
+                description1.Text = "";
+                type1.Text = "";
+
+                displayName1.Enabled = false;
+                defaultValue1.Enabled = false;
+                currentValue1.Enabled = false;
+                description1.Enabled = false;
+
+                refresh1.Enabled = false;
+                save1_btn.Enabled = false;
             }
             else if (env_num == 2)
             {
@@ -307,10 +319,13 @@ namespace EnvVarChecker
                 displayName2.Text = "";
                 defaultValue2.Text = "";
                 currentValue2.Text = "";
+                description2.Text = "";
+                type2.Text = "";
 
                 displayName2.Enabled = false;
                 defaultValue2.Enabled = false;
                 currentValue2.Enabled = false;
+                description2.Enabled = false;
 
                 refresh2.Enabled = false;
                 save2_btn.Enabled = false;
@@ -322,9 +337,13 @@ namespace EnvVarChecker
                 defaultValue3.Text = "";
                 currentValue3.Text = "";
 
+                description3.Text = "";
+                type3.Text = "";
+
                 displayName3.Enabled = false;
                 defaultValue3.Enabled = false;
                 currentValue3.Enabled = false;
+                description3.Enabled = false;
 
                 refresh3.Enabled = false;
                 save3_btn.Enabled = false;
@@ -339,6 +358,18 @@ namespace EnvVarChecker
                 displayName1.Text = info.DisplayName;
                 defaultValue1.Text = info.DefaultValue;
                 currentValue1.Text = info.CurrentValue;
+
+                description1.Text = info.Description;
+                type1.Text = info.DataType_formatted;
+
+                displayName1.Enabled = true;
+                defaultValue1.Enabled = true;
+                currentValue1.Enabled = true;
+                defaultValue1.Enabled = true;
+                description1.Enabled = true;
+
+                refresh1.Enabled = true;
+                save1_btn.Enabled = true;
             }
             else if (env_num == 2)
             {
@@ -347,9 +378,14 @@ namespace EnvVarChecker
                 defaultValue2.Text = info.DefaultValue;
                 currentValue2.Text = info.CurrentValue;
 
+                description2.Text = info.Description;
+                type2.Text = info.DataType_formatted;
+
                 displayName2.Enabled = true;
                 defaultValue2.Enabled = true;
                 currentValue2.Enabled = true;
+                defaultValue2.Enabled = true;
+                description2.Enabled = true;
 
                 refresh2.Enabled = true;
                 save2_btn.Enabled = true;
@@ -361,9 +397,14 @@ namespace EnvVarChecker
                 defaultValue3.Text = info.DefaultValue;
                 currentValue3.Text = info.CurrentValue;
 
+                description3.Text = info.Description;
+                type3.Text = info.DataType_formatted;
+
                 displayName3.Enabled = true;
                 defaultValue3.Enabled = true;
                 currentValue3.Enabled = true;
+                defaultValue3.Enabled = true;
+                description3.Enabled = true;
 
                 refresh3.Enabled = true;
                 save3_btn.Enabled = true;
@@ -583,7 +624,7 @@ namespace EnvVarChecker
 
                     newEnvVar["schemaname"] = info.SchemaName;
                     newEnvVar["displayname"] = info.DisplayName;
-                    newEnvVar["type"] = new OptionSetValue(int.Parse(info.DataType));
+                    newEnvVar["type"] = new OptionSetValue(info.DataType);
                     newEnvVar["defaultvalue"] = info.DefaultValue;
                     newEnvVar["description"] = info.Description;
                     service.Create(newEnvVar);
@@ -637,11 +678,6 @@ namespace EnvVarChecker
 
 
             }
-
-        }
-
-        private void toolTip1_Popup(object sender, PopupEventArgs e)
-        {
 
         }
     }
