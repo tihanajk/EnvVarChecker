@@ -173,6 +173,7 @@ namespace EnvVarChecker
                                             <condition attribute='type' operator='ne' value='100000004' />
                                             <condition attribute='type' operator='ne' value='100000005' />
                                         </filter>
+                                        <order attribute='displayname' />
                                       </entity>
                                     </fetch>";
 
@@ -420,9 +421,12 @@ namespace EnvVarChecker
                 Work = (worker, args) =>
                 {
                     var envVar = new Entity("environmentvariabledefinition", info.Id);
-                    if (info.DisplayName_modif) envVar["displayname"] = info.DisplayName;
-                    if (info.DefaultValue_modif) envVar["defaultvalue"] = info.DefaultValue;
-                    if (info.DisplayName_modif || info.DefaultValue_modif) service.Update(envVar);
+
+                    envVar["displayname"] = info.DisplayName;
+                    envVar["defaultvalue"] = info.DefaultValue;
+                    envVar["description"] = info.Description;
+
+                    service.Update(envVar);
 
                     if (info.CurrentValue_modif)
                     {
@@ -447,8 +451,6 @@ namespace EnvVarChecker
                         MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    info.DisplayName_modif = false;
-                    info.DefaultValue_modif = false;
                     info.CurrentValue_modif = false;
                 }
             });
@@ -460,13 +462,14 @@ namespace EnvVarChecker
             var displayName = displayName1.Text;
             var defaultValue = defaultValue1.Text;
             var currentValue = currentValue1.Text;
+            var description = description1.Text;
 
-            EnvVar1_Info.DisplayName_modif = EnvVar1_Info.DisplayName != displayName;
-            EnvVar1_Info.DefaultValue_modif = EnvVar1_Info.DefaultValue != defaultValue;
+
+            EnvVar1_Info.DisplayName = displayName;
+            EnvVar1_Info.DefaultValue = defaultValue;
+            EnvVar1_Info.Description = description;
+
             EnvVar1_Info.CurrentValue_modif = EnvVar1_Info.CurrentValue != currentValue;
-
-            if (EnvVar1_Info.DisplayName_modif) EnvVar1_Info.DisplayName = displayName;
-            if (EnvVar1_Info.DefaultValue_modif) EnvVar1_Info.DefaultValue = defaultValue;
             if (EnvVar1_Info.CurrentValue_modif) EnvVar1_Info.CurrentValue = currentValue;
 
             ExecuteMethod(() => UpdateEnvVar(Service, EnvVar1_Info));
@@ -478,13 +481,14 @@ namespace EnvVarChecker
             var displayName = displayName2.Text;
             var defaultValue = defaultValue2.Text;
             var currentValue = currentValue2.Text;
+            var description = description2.Text;
 
-            EnvVar2_Info.DisplayName_modif = EnvVar2_Info.DisplayName != displayName;
-            EnvVar2_Info.DefaultValue_modif = EnvVar2_Info.DefaultValue != defaultValue;
+
+            EnvVar2_Info.DisplayName = displayName;
+            EnvVar2_Info.DefaultValue = defaultValue;
+            EnvVar2_Info.Description = description;
+
             EnvVar2_Info.CurrentValue_modif = EnvVar2_Info.CurrentValue != currentValue;
-
-            if (EnvVar2_Info.DisplayName_modif) EnvVar2_Info.DisplayName = displayName;
-            if (EnvVar2_Info.DefaultValue_modif) EnvVar2_Info.DefaultValue = defaultValue;
             if (EnvVar2_Info.CurrentValue_modif) EnvVar2_Info.CurrentValue = currentValue;
 
             ExecuteMethod(() => UpdateEnvVar(SERVICE2, EnvVar2_Info));
@@ -496,13 +500,13 @@ namespace EnvVarChecker
             var displayName = displayName3.Text;
             var defaultValue = defaultValue3.Text;
             var currentValue = currentValue3.Text;
+            var description = description3.Text;
 
-            EnvVar3_Info.DisplayName_modif = EnvVar3_Info.DisplayName != displayName;
-            EnvVar3_Info.DefaultValue_modif = EnvVar3_Info.DefaultValue != defaultValue;
+            EnvVar3_Info.DisplayName = displayName;
+            EnvVar3_Info.DefaultValue = defaultValue;
+            EnvVar3_Info.Description = description;
+
             EnvVar3_Info.CurrentValue_modif = EnvVar3_Info.CurrentValue != currentValue;
-
-            if (EnvVar3_Info.DisplayName_modif) EnvVar3_Info.DisplayName = displayName;
-            if (EnvVar3_Info.DefaultValue_modif) EnvVar3_Info.DefaultValue = defaultValue;
             if (EnvVar3_Info.CurrentValue_modif) EnvVar3_Info.CurrentValue = currentValue;
 
             ExecuteMethod(() => UpdateEnvVar(SERVICE3, EnvVar3_Info));
@@ -516,11 +520,6 @@ namespace EnvVarChecker
         private void LoadSolutionsBtn_Click(object sender, EventArgs e)
         {
             ExecuteMethod(GetSolutions);
-        }
-
-        private void LoadVars()
-        {
-
         }
 
         private void EnvVarsCombobox_SelectedIndexChanged(object sender, EventArgs e)
@@ -629,6 +628,8 @@ namespace EnvVarChecker
                     newEnvVar["description"] = info.Description;
                     service.Create(newEnvVar);
 
+                    args.Result = newEnvVar;
+
                     if (info.CurrentValue == null || info.CurrentValue == "") return;
 
                     var newValue = new Entity("environmentvariablevalue");
@@ -637,7 +638,6 @@ namespace EnvVarChecker
                     newValue["value"] = info.CurrentValue;
                     service.Create(newValue);
 
-                    args.Result = newEnvVar;
                 },
                 PostWorkCallBack = (args) =>
                 {

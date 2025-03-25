@@ -135,7 +135,6 @@
             this.loadVarsBtn.Name = "loadVarsBtn";
             this.loadVarsBtn.Size = new System.Drawing.Size(173, 34);
             this.loadVarsBtn.Text = "Load variables";
-            this.loadVarsBtn.Visible = false;
             this.loadVarsBtn.Click += new System.EventHandler(this.loadVarsBtn_Click);
             // 
             // newEnvVar_btn
@@ -817,7 +816,7 @@
             this.save3_btn.UseVisualStyleBackColor = true;
             this.save3_btn.Click += new System.EventHandler(this.save3_btn_Click);
             // 
-            // MyPluginControl
+            // EnvVarCheckerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -828,7 +827,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "MyPluginControl";
+            this.Name = "EnvVarCheckerControl";
             this.Size = new System.Drawing.Size(2182, 1052);
             this.Load += new System.EventHandler(this.EnvVarCheckerControl_Load);
             this.toolStripMenu.ResumeLayout(false);
