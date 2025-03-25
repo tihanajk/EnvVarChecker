@@ -1,6 +1,6 @@
 ﻿namespace EnvVarChecker
 {
-    partial class MyPluginControl
+    partial class EnvVarCheckerControl
     {
         /// <summary> 
         /// Variable nécessaire au concepteur.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyPluginControl));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EnvVarCheckerControl));
             this.toolStripMenu = new System.Windows.Forms.ToolStrip();
             this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -830,7 +830,7 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "MyPluginControl";
             this.Size = new System.Drawing.Size(2182, 1052);
-            this.Load += new System.EventHandler(this.MyPluginControl_Load);
+            this.Load += new System.EventHandler(this.EnvVarCheckerControl_Load);
             this.toolStripMenu.ResumeLayout(false);
             this.toolStripMenu.PerformLayout();
             this.groupBox1.ResumeLayout(false);

@@ -171,12 +171,12 @@
     <Compile Include="Models\CreateInfo.cs" />
     <Compile Include="Models\EnvVarInfo.cs" />
     <Compile Include="Models\ListObject.cs" />
-    <Compile Include="MyPlugin.cs" />
-    <Compile Include="MyPluginControl.cs">
+    <Compile Include="EnvVarChecker.cs" />
+    <Compile Include="EnvVarCheckerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MyPluginControl.designer.cs">
-      <DependentUpon>MyPluginControl.cs</DependentUpon>
+    <Compile Include="EnvVarCheckerControl.designer.cs">
+      <DependentUpon>EnvVarCheckerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="NewEnvVarDialog.cs">
       <SubType>Form</SubType>
@@ -197,8 +197,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MyPluginControl.resx">
-      <DependentUpon>MyPluginControl.cs</DependentUpon>
+    <EmbeddedResource Include="EnvVarCheckerControl.resx">
+      <DependentUpon>EnvVarCheckerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewEnvVarDialog.resx">
       <DependentUpon>NewEnvVarDialog.cs</DependentUpon>

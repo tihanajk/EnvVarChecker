@@ -16,11 +16,11 @@ using XrmToolBox.Extensibility;
 
 namespace EnvVarChecker
 {
-    public partial class MyPluginControl : PluginControlBase
+    public partial class EnvVarCheckerControl : PluginControlBase
     {
         private Settings mySettings;
 
-        public MyPluginControl()
+        public EnvVarCheckerControl()
         {
             InitializeComponent();
 
@@ -45,7 +45,7 @@ namespace EnvVarChecker
         private IOrganizationService SERVICE2;
         private IOrganizationService SERVICE3;
 
-        private void MyPluginControl_Load(object sender, EventArgs e)
+        private void EnvVarCheckerControl_Load(object sender, EventArgs e)
         {
             // Loads or creates the settings for the plugin
             if (!SettingsManager.Instance.TryLoad(GetType(), out mySettings))
@@ -65,7 +65,7 @@ namespace EnvVarChecker
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MyPluginControl_OnCloseTool(object sender, EventArgs e)
+        private void EnvVarCheckerControl_OnCloseTool(object sender, EventArgs e)
         {
             // Before leaving, save the settings
             SettingsManager.Instance.Save(GetType(), mySettings);

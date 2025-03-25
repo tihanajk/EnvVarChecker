@@ -21,17 +21,17 @@ namespace EnvVarChecker
         ExportMetadata("BackgroundColor", "Lightblue"),
         ExportMetadata("PrimaryFontColor", "Black"),
         ExportMetadata("SecondaryFontColor", "Gray")]
-    public class MyPlugin : PluginBase
+    public class EnvVarChecker : PluginBase
     {
         public override IXrmToolBoxPluginControl GetControl()
         {
-            return new MyPluginControl();
+            return new EnvVarCheckerControl();
         }
 
         /// <summary>
         /// Constructor 
         /// </summary>
-        public MyPlugin()
+        public EnvVarChecker()
         {
             // If you have external assemblies that you need to load, uncomment the following to 
             // hook into the event that will fire when an Assembly fails to resolve
