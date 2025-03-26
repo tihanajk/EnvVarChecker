@@ -32,9 +32,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EnvVarCheckerControl));
             this.toolStripMenu = new System.Windows.Forms.ToolStrip();
             this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.solutionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.variablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.loadVarsBtn = new System.Windows.Forms.ToolStripButton();
             this.newEnvVar_btn = new System.Windows.Forms.ToolStripButton();
+            this.compareBtn = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.idMatchCheckbox = new System.Windows.Forms.CheckBox();
             this.nameMatchCheckbox = new System.Windows.Forms.CheckBox();
@@ -92,9 +96,6 @@
             this.save3_btn = new System.Windows.Forms.Button();
             this.refresh_tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.save_tooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.solutionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.variablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenu.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -110,7 +111,8 @@
             this.toolStripDropDownButton1,
             this.toolStripButton1,
             this.loadVarsBtn,
-            this.newEnvVar_btn});
+            this.newEnvVar_btn,
+            this.compareBtn});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
             this.toolStripMenu.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -122,6 +124,31 @@
             // 
             this.tssSeparator1.Name = "tssSeparator1";
             this.tssSeparator1.Size = new System.Drawing.Size(6, 31);
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.solutionsToolStripMenuItem,
+            this.variablesToolStripMenuItem});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(70, 28);
+            this.toolStripDropDownButton1.Text = "Load";
+            // 
+            // solutionsToolStripMenuItem
+            // 
+            this.solutionsToolStripMenuItem.Name = "solutionsToolStripMenuItem";
+            this.solutionsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.solutionsToolStripMenuItem.Text = "Solutions";
+            this.solutionsToolStripMenuItem.Click += new System.EventHandler(this.solutionsToolStripMenuItem_Click);
+            // 
+            // variablesToolStripMenuItem
+            // 
+            this.variablesToolStripMenuItem.Name = "variablesToolStripMenuItem";
+            this.variablesToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.variablesToolStripMenuItem.Text = "Variables";
+            this.variablesToolStripMenuItem.Click += new System.EventHandler(this.variablesToolStripMenuItem_Click);
             // 
             // toolStripButton1
             // 
@@ -151,6 +178,17 @@
             this.newEnvVar_btn.Size = new System.Drawing.Size(103, 28);
             this.newEnvVar_btn.Text = "New variable";
             this.newEnvVar_btn.Click += new System.EventHandler(this.newEnvVar_btn_Click);
+            // 
+            // compareBtn
+            // 
+            this.compareBtn.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.compareBtn.CheckOnClick = true;
+            this.compareBtn.Image = ((System.Drawing.Image)(resources.GetObject("compareBtn.Image")));
+            this.compareBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.compareBtn.Name = "compareBtn";
+            this.compareBtn.Size = new System.Drawing.Size(84, 28);
+            this.compareBtn.Text = "Compare";
+            this.compareBtn.Click += new System.EventHandler(this.compareBtn_Click);
             // 
             // groupBox1
             // 
@@ -410,7 +448,7 @@
             this.refresh1.AccessibleDescription = "Refresh";
             this.refresh1.AccessibleName = "Refresh";
             this.refresh1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.refresh1.Image = global::EnvVarChecker.Properties.Resources.refresh32_btn;
+            this.refresh1.Image = ((System.Drawing.Image)(resources.GetObject("refresh1.Image")));
             this.refresh1.Location = new System.Drawing.Point(286, 15);
             this.refresh1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.refresh1.Name = "refresh1";
@@ -423,7 +461,7 @@
             // save1_btn
             // 
             this.save1_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.save1_btn.Image = global::EnvVarChecker.Properties.Resources.save32_btn;
+            this.save1_btn.Image = ((System.Drawing.Image)(resources.GetObject("save1_btn.Image")));
             this.save1_btn.Location = new System.Drawing.Point(343, 15);
             this.save1_btn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.save1_btn.Name = "save1_btn";
@@ -605,7 +643,7 @@
             // 
             this.refresh2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.refresh2.Enabled = false;
-            this.refresh2.Image = global::EnvVarChecker.Properties.Resources.refresh32_btn;
+            this.refresh2.Image = ((System.Drawing.Image)(resources.GetObject("refresh2.Image")));
             this.refresh2.Location = new System.Drawing.Point(301, 15);
             this.refresh2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.refresh2.Name = "refresh2";
@@ -618,7 +656,7 @@
             // 
             this.save2_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.save2_btn.Enabled = false;
-            this.save2_btn.Image = global::EnvVarChecker.Properties.Resources.save32_btn;
+            this.save2_btn.Image = ((System.Drawing.Image)(resources.GetObject("save2_btn.Image")));
             this.save2_btn.Location = new System.Drawing.Point(358, 15);
             this.save2_btn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.save2_btn.Name = "save2_btn";
@@ -800,7 +838,7 @@
             // 
             this.refresh3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.refresh3.Enabled = false;
-            this.refresh3.Image = global::EnvVarChecker.Properties.Resources.refresh32_btn;
+            this.refresh3.Image = ((System.Drawing.Image)(resources.GetObject("refresh3.Image")));
             this.refresh3.Location = new System.Drawing.Point(244, 15);
             this.refresh3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.refresh3.Name = "refresh3";
@@ -813,7 +851,7 @@
             // 
             this.save3_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.save3_btn.Enabled = false;
-            this.save3_btn.Image = global::EnvVarChecker.Properties.Resources.save32_btn;
+            this.save3_btn.Image = ((System.Drawing.Image)(resources.GetObject("save3_btn.Image")));
             this.save3_btn.Location = new System.Drawing.Point(301, 15);
             this.save3_btn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.save3_btn.Name = "save3_btn";
@@ -821,31 +859,6 @@
             this.save3_btn.TabIndex = 0;
             this.save3_btn.UseVisualStyleBackColor = true;
             this.save3_btn.Click += new System.EventHandler(this.save3_btn_Click);
-            // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.solutionsToolStripMenuItem,
-            this.variablesToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(70, 28);
-            this.toolStripDropDownButton1.Text = "Load";
-            // 
-            // solutionsToolStripMenuItem
-            // 
-            this.solutionsToolStripMenuItem.Name = "solutionsToolStripMenuItem";
-            this.solutionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.solutionsToolStripMenuItem.Text = "Solutions";
-            this.solutionsToolStripMenuItem.Click += new System.EventHandler(this.solutionsToolStripMenuItem_Click);
-            // 
-            // variablesToolStripMenuItem
-            // 
-            this.variablesToolStripMenuItem.Name = "variablesToolStripMenuItem";
-            this.variablesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.variablesToolStripMenuItem.Text = "Variables";
-            this.variablesToolStripMenuItem.Click += new System.EventHandler(this.variablesToolStripMenuItem_Click);
             // 
             // EnvVarCheckerControl
             // 
@@ -941,5 +954,6 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem solutionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem variablesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton compareBtn;
     }
 }

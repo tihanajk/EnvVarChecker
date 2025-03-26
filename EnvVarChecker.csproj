@@ -199,14 +199,15 @@
   <ItemGroup>
     <EmbeddedResource Include="EnvVarCheckerControl.resx">
       <DependentUpon>EnvVarCheckerControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="NewEnvVarDialog.resx">
       <DependentUpon>NewEnvVarDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -216,7 +217,15 @@
     <None Include="Images\save32_btn.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <None Include="Images\compare.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\compare_off.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\compare.png" />
+    <Content Include="Resources\compare_off.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

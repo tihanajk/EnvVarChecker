@@ -4,13 +4,8 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Services.Protocols;
 using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 
@@ -19,6 +14,8 @@ namespace EnvVarChecker
     public partial class EnvVarCheckerControl : PluginControlBase
     {
         private Settings mySettings;
+
+        private bool COMPARING = false;
 
         public EnvVarCheckerControl()
         {
@@ -291,8 +288,12 @@ namespace EnvVarChecker
 
                     if (result != null) SetInfo(result, env_num);
                     else ClearInfo(env_num);
+
+                    HandleCompareLogic();
                 }
             });
+
+            
         }
 
         private void ClearInfo(int env_num)
@@ -390,6 +391,8 @@ namespace EnvVarChecker
 
                 refresh2.Enabled = true;
                 save2_btn.Enabled = true;
+
+                if (info.DefaultValue != EnvVar1_Info.DefaultValue) defaultValue2.ForeColor = Color.Red;
             }
             else if (env_num == 3)
             {
@@ -452,6 +455,8 @@ namespace EnvVarChecker
                     }
 
                     info.CurrentValue_modif = false;
+
+                    HandleCompareLogic();
                 }
             });
         }
@@ -692,6 +697,56 @@ namespace EnvVarChecker
 
         }
 
-        
+        private void HandleCompareBtn()
+        {
+            if (COMPARING)
+            {
+                compareBtn.Text = "Comparing on";
+                compareBtn.BackColor = SystemColors.GradientActiveCaption;
+                compareBtn.Image = Properties.Resources.compare;
+            }
+            else
+            {
+                compareBtn.Text = "Comparing off";
+                compareBtn.BackColor = SystemColors.HighlightText;
+                compareBtn.Image = Properties.Resources.compare_off;
+            }
+        }
+
+        private void HandleCompareLogic()
+        {
+            if (!COMPARING)
+            {
+                defaultValue2.ForeColor = SystemColors.WindowText;
+                defaultValue3.ForeColor = SystemColors.WindowText;
+
+                currentValue2.ForeColor = SystemColors.WindowText;
+                currentValue3.ForeColor = SystemColors.WindowText;
+
+                return;
+            }
+
+            if (EnvVar1_Info == null) return;
+
+            if (EnvVar2_Info == null && EnvVar3_Info == null) return;
+
+            // compare env 2 to env 1
+            defaultValue2.ForeColor = EnvVar1_Info.DefaultValue!=EnvVar2_Info.DefaultValue ? Color.Red : Color.Green;
+            currentValue2.ForeColor = EnvVar1_Info.CurrentValue!=EnvVar2_Info.CurrentValue ? Color.Red : Color.Green;
+
+            // compare env 3 to env 1
+            defaultValue3.ForeColor = EnvVar1_Info.DefaultValue != EnvVar3_Info.DefaultValue ? Color.Red : Color.Green;
+            currentValue3.ForeColor = EnvVar1_Info.CurrentValue != EnvVar3_Info.CurrentValue ? Color.Red : Color.Green;
+
+        }
+
+        private void compareBtn_Click(object sender, EventArgs e)
+        {
+            COMPARING = compareBtn.Checked;
+
+            HandleCompareBtn();
+
+            HandleCompareLogic();
+        }
     }
 }
