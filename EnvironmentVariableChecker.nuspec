@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>EnvironmentVariableChecker</id>
-    <version>1.2025.3.3</version>
+    <version>1.2025.3.4</version>
     <title>Environment Variable Checker</title>
     <authors>Tihana Jurković-Kormo</authors>
     <owners></owners>
@@ -11,6 +11,9 @@
     <iconUrl>https://raw.githubusercontent.com/tihanajk/EnvVarChecker/main/Images/logo.jpg</iconUrl>
     <description>XrmToolBox tool for checking environment variables in up to 3 environments</description>
     <summary>XrmToolBox tool for checking environment variables in up to 3 environments</summary>
+    <releaseNotes>1.2025.3.4
+- Fixed issue for no key in dictionary
+- Fixed button possition in New env var dialog</releaseNotes>
     <copyright>Copyright 2025 TJK</copyright>
     <tags>XrmToolBox Plugins EnvironmentVariableChecker</tags>
     <dependencies>
