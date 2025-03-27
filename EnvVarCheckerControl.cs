@@ -260,7 +260,7 @@ namespace EnvVarChecker
                     var envVarInfo = new EnvVarInfo() { };
                     envVarInfo.Id = envVar.Id;
                     envVarInfo.SchemaName = (string)envVar["schemaname"];
-                    envVarInfo.DisplayName = (string)envVar["displayname"];
+                    envVarInfo.DisplayName = envVar.Contains("displayname") ? (string)envVar["displayname"] : "";
                     envVarInfo.DataType = ((OptionSetValue)envVar["type"]).Value;
                     envVarInfo.DataType_formatted = envVar.FormattedValues["type"];
                     envVarInfo.DefaultValue = envVar.Contains("defaultvalue") ? (envVar["defaultvalue"]).ToString() : null;
@@ -269,7 +269,7 @@ namespace EnvVarChecker
                     if (value != null)
                     {
                         envVarInfo.ValueId = value.Id;
-                        envVarInfo.CurrentValue = (string)value["value"];
+                        envVarInfo.CurrentValue = value.Contains("value") ? (string)value["value"] : "";
                     }
 
                     if (env_num == 1) EnvVar1_Info = envVarInfo;
@@ -293,7 +293,7 @@ namespace EnvVarChecker
                 }
             });
 
-            
+
         }
 
         private void ClearInfo(int env_num)
@@ -731,8 +731,8 @@ namespace EnvVarChecker
             if (EnvVar2_Info == null && EnvVar3_Info == null) return;
 
             // compare env 2 to env 1
-            defaultValue2.ForeColor = EnvVar1_Info.DefaultValue!=EnvVar2_Info.DefaultValue ? Color.Red : Color.Green;
-            currentValue2.ForeColor = EnvVar1_Info.CurrentValue!=EnvVar2_Info.CurrentValue ? Color.Red : Color.Green;
+            defaultValue2.ForeColor = EnvVar1_Info.DefaultValue != EnvVar2_Info.DefaultValue ? Color.Red : Color.Green;
+            currentValue2.ForeColor = EnvVar1_Info.CurrentValue != EnvVar2_Info.CurrentValue ? Color.Red : Color.Green;
 
             // compare env 3 to env 1
             defaultValue3.ForeColor = EnvVar1_Info.DefaultValue != EnvVar3_Info.DefaultValue ? Color.Red : Color.Green;
