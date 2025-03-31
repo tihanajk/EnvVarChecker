@@ -60,6 +60,8 @@
             // 
             // displayNameText
             // 
+            this.displayNameText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.displayNameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.displayNameText.Location = new System.Drawing.Point(22, 57);
             this.displayNameText.Margin = new System.Windows.Forms.Padding(6);
@@ -69,6 +71,8 @@
             // 
             // schemaNameText
             // 
+            this.schemaNameText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.schemaNameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.schemaNameText.Location = new System.Drawing.Point(22, 146);
             this.schemaNameText.Margin = new System.Windows.Forms.Padding(6);
@@ -101,6 +105,8 @@
             // 
             // descriptionText
             // 
+            this.descriptionText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.descriptionText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.descriptionText.Location = new System.Drawing.Point(22, 236);
             this.descriptionText.Margin = new System.Windows.Forms.Padding(6);
@@ -122,6 +128,8 @@
             // 
             // dataTypeOption
             // 
+            this.dataTypeOption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataTypeOption.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dataTypeOption.FormattingEnabled = true;
             this.dataTypeOption.Location = new System.Drawing.Point(22, 445);
@@ -132,6 +140,8 @@
             // 
             // currentValueText
             // 
+            this.currentValueText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.currentValueText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.currentValueText.Location = new System.Drawing.Point(20, 631);
             this.currentValueText.Margin = new System.Windows.Forms.Padding(6);
@@ -152,6 +162,8 @@
             // 
             // defaultValueText
             // 
+            this.defaultValueText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.defaultValueText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.defaultValueText.Location = new System.Drawing.Point(20, 537);
             this.defaultValueText.Margin = new System.Windows.Forms.Padding(6);
@@ -172,6 +184,8 @@
             // 
             // destinationEnvs
             // 
+            this.destinationEnvs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.destinationEnvs.BackColor = System.Drawing.SystemColors.Control;
             this.destinationEnvs.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.destinationEnvs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -179,7 +193,7 @@
             this.destinationEnvs.Location = new System.Drawing.Point(20, 726);
             this.destinationEnvs.Margin = new System.Windows.Forms.Padding(6);
             this.destinationEnvs.Name = "destinationEnvs";
-            this.destinationEnvs.Size = new System.Drawing.Size(436, 156);
+            this.destinationEnvs.Size = new System.Drawing.Size(957, 156);
             this.destinationEnvs.TabIndex = 22;
             this.destinationEnvs.SelectedIndexChanged += new System.EventHandler(this.destinationEnvs_SelectedIndexChanged);
             // 
@@ -199,7 +213,7 @@
             this.cancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cancelBtn.Location = new System.Drawing.Point(843, 804);
+            this.cancelBtn.Location = new System.Drawing.Point(843, 983);
             this.cancelBtn.Margin = new System.Windows.Forms.Padding(6);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(134, 61);
@@ -213,7 +227,7 @@
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.saveBtn.Enabled = false;
             this.saveBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.saveBtn.Location = new System.Drawing.Point(714, 804);
+            this.saveBtn.Location = new System.Drawing.Point(714, 983);
             this.saveBtn.Margin = new System.Windows.Forms.Padding(6);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(117, 61);
@@ -226,7 +240,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(992, 962);
+            this.ClientSize = new System.Drawing.Size(992, 1059);
             this.Controls.Add(this.saveBtn);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.label6);
