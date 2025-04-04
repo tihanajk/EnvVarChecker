@@ -1,11 +1,16 @@
 ﻿using McTools.Xrm.Connection;
 using McTools.Xrm.Connection.WinForms;
+using Microsoft.Win32;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Web.Services.Description;
 using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 
@@ -212,9 +217,9 @@ namespace EnvVarChecker
             });
         }
 
-        private EnvVarInfo EnvVar1_Info = new EnvVarInfo();
-        private EnvVarInfo EnvVar2_Info = new EnvVarInfo();
-        private EnvVarInfo EnvVar3_Info = new EnvVarInfo();
+        private EnvVarInfo EnvVar1_Info;
+        private EnvVarInfo EnvVar2_Info;
+        private EnvVarInfo EnvVar3_Info;
 
         private void FetchEnvVarInfo(IOrganizationService service, int env_num)
         {
@@ -242,7 +247,7 @@ namespace EnvVarChecker
                                         </fetch>";
                     var envVar = service.RetrieveMultiple(new FetchExpression(fetchEnvVar)).Entities.FirstOrDefault();
                     if (envVar == null)
-                    {
+                    { 
                         return;
                     }
 
@@ -300,6 +305,8 @@ namespace EnvVarChecker
         {
             if (env_num == 1)
             {
+                EnvVar1_Info = null;
+
                 schemaName1.Text = "";
                 displayName1.Text = "";
                 defaultValue1.Text = "";
@@ -317,6 +324,8 @@ namespace EnvVarChecker
             }
             else if (env_num == 2)
             {
+                EnvVar2_Info = null;
+
                 schemaName2.Text = "";
                 displayName2.Text = "";
                 defaultValue2.Text = "";
@@ -334,6 +343,8 @@ namespace EnvVarChecker
             }
             else if (env_num == 3)
             {
+                EnvVar3_Info = null;
+
                 schemaName3.Text = "";
                 displayName3.Text = "";
                 defaultValue3.Text = "";
@@ -747,6 +758,96 @@ namespace EnvVarChecker
             HandleCompareBtn();
 
             HandleCompareLogic();
+        }
+
+        private void PopulateExcel(string fileName)
+        {
+            IWorkbook workbook = new XSSFWorkbook();
+
+            WriteEnvVarInfo(workbook, EnvVar1_Info, ENV1.ConnectionName);
+
+            if(ENV2 != null) WriteEnvVarInfo(workbook, EnvVar2_Info, ENV2.ConnectionName);
+            if(ENV3 != null) WriteEnvVarInfo(workbook, EnvVar3_Info, ENV3.ConnectionName);
+
+            using (FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+            {
+                workbook.Write(fs);
+            }
+        }
+
+        private void ColorRowCells(IWorkbook workbook, IRow row, short colorIndex)
+        {
+            ICellStyle headerStyle = workbook.CreateCellStyle();
+            // Set background color
+            headerStyle.FillForegroundColor = colorIndex;
+            headerStyle.FillPattern = FillPattern.SolidForeground;
+
+            foreach (ICell cell in row.Cells)
+            {
+                cell.CellStyle = headerStyle;
+            }
+        }
+
+        private void WriteEnvVarInfo(IWorkbook workbook, EnvVarInfo var, string envName)
+        {
+            ISheet sheet = workbook.CreateSheet(envName);
+
+            IRow envVarInfoRow = sheet.CreateRow(0);
+            envVarInfoRow.CreateCell(0).SetCellValue("Schema name");
+            envVarInfoRow.CreateCell(1).SetCellValue("Display name");
+            envVarInfoRow.CreateCell(2).SetCellValue("Description");
+            envVarInfoRow.CreateCell(3).SetCellValue("Type");
+            envVarInfoRow.CreateCell(4).SetCellValue("Default value");
+            envVarInfoRow.CreateCell(5).SetCellValue("Value");
+
+            if (var == null) return;
+
+            ColorRowCells(workbook, envVarInfoRow, IndexedColors.LightBlue.Index);
+
+            IRow valueRow = sheet.CreateRow(1);
+            valueRow.CreateCell(0).SetCellValue(var.SchemaName);
+            valueRow.CreateCell(1).SetCellValue(var.DisplayName);
+            valueRow.CreateCell(2).SetCellValue(var.Description);
+            valueRow.CreateCell(3).SetCellValue(var.DataType_formatted);
+            valueRow.CreateCell(4).SetCellValue(var.DefaultValue);
+            valueRow.CreateCell(5).SetCellValue(var.CurrentValue);
+
+
+
+        }
+
+        private void exportBtn_Click(object sender, EventArgs e)
+        {
+            var saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+
+            saveFileDialog1.Filter = "Excel files|*.xlsx";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+
+                WorkAsync(new WorkAsyncInfo()
+                {
+                    Message = "Populating excel",
+                    AsyncArgument = null,
+                    Work = (worker, args) =>
+                    {
+                        PopulateExcel(saveFileDialog1.FileName);
+
+                    },
+                    PostWorkCallBack = (args) =>
+                    {
+                        if (args.Error != null)
+                        {
+                            MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        MessageBox.Show("Finished");
+                    }
+                });
+                
+            }
         }
     }
 }
