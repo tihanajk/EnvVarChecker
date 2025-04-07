@@ -39,7 +39,11 @@
             this.loadVarsBtn = new System.Windows.Forms.ToolStripButton();
             this.newEnvVar_btn = new System.Windows.Forms.ToolStripButton();
             this.compareBtn = new System.Windows.Forms.ToolStripButton();
+            this.exportAllBtn = new System.Windows.Forms.ToolStripButton();
             this.exportBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.selectedVariableToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.allVariablesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.idMatchCheckbox = new System.Windows.Forms.CheckBox();
             this.nameMatchCheckbox = new System.Windows.Forms.CheckBox();
@@ -97,7 +101,6 @@
             this.save3_btn = new System.Windows.Forms.Button();
             this.refresh_tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.save_tooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.exportAllBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripMenu.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -115,8 +118,9 @@
             this.loadVarsBtn,
             this.newEnvVar_btn,
             this.compareBtn,
+            this.exportAllBtn,
             this.exportBtn,
-            this.exportAllBtn});
+            this.toolStripDropDownButton2});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
             this.toolStripMenu.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -194,6 +198,16 @@
             this.compareBtn.Text = "Compare";
             this.compareBtn.Click += new System.EventHandler(this.compareBtn_Click);
             // 
+            // exportAllBtn
+            // 
+            this.exportAllBtn.Image = ((System.Drawing.Image)(resources.GetObject("exportAllBtn.Image")));
+            this.exportAllBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.exportAllBtn.Name = "exportAllBtn";
+            this.exportAllBtn.Size = new System.Drawing.Size(84, 28);
+            this.exportAllBtn.Text = "Export all";
+            this.exportAllBtn.Visible = false;
+            this.exportAllBtn.Click += new System.EventHandler(this.exportAllBtn_Click);
+            // 
             // exportBtn
             // 
             this.exportBtn.Image = ((System.Drawing.Image)(resources.GetObject("exportBtn.Image")));
@@ -201,7 +215,33 @@
             this.exportBtn.Name = "exportBtn";
             this.exportBtn.Size = new System.Drawing.Size(69, 28);
             this.exportBtn.Text = "Export";
+            this.exportBtn.Visible = false;
             this.exportBtn.Click += new System.EventHandler(this.exportBtn_Click);
+            // 
+            // toolStripDropDownButton2
+            // 
+            this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectedVariableToolStripMenuItem1,
+            this.allVariablesToolStripMenuItem1});
+            this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
+            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(78, 28);
+            this.toolStripDropDownButton2.Text = "Export";
+            // 
+            // selectedVariableToolStripMenuItem1
+            // 
+            this.selectedVariableToolStripMenuItem1.Name = "selectedVariableToolStripMenuItem1";
+            this.selectedVariableToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.selectedVariableToolStripMenuItem1.Text = "Selected variable";
+            this.selectedVariableToolStripMenuItem1.Click += new System.EventHandler(this.exportBtn_Click);
+            // 
+            // allVariablesToolStripMenuItem1
+            // 
+            this.allVariablesToolStripMenuItem1.Name = "allVariablesToolStripMenuItem1";
+            this.allVariablesToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.allVariablesToolStripMenuItem1.Text = "All variables";
+            this.allVariablesToolStripMenuItem1.Click += new System.EventHandler(this.exportAllBtn_Click);
             // 
             // groupBox1
             // 
@@ -216,9 +256,9 @@
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.SolutionsCombobox);
             this.groupBox1.Location = new System.Drawing.Point(2, 32);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(1186, 65);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
@@ -228,7 +268,7 @@
             // 
             this.idMatchCheckbox.AutoSize = true;
             this.idMatchCheckbox.Location = new System.Drawing.Point(705, 36);
-            this.idMatchCheckbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.idMatchCheckbox.Margin = new System.Windows.Forms.Padding(2);
             this.idMatchCheckbox.Name = "idMatchCheckbox";
             this.idMatchCheckbox.Size = new System.Drawing.Size(34, 17);
             this.idMatchCheckbox.TabIndex = 9;
@@ -242,7 +282,7 @@
             this.nameMatchCheckbox.Checked = true;
             this.nameMatchCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.nameMatchCheckbox.Location = new System.Drawing.Point(609, 36);
-            this.nameMatchCheckbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nameMatchCheckbox.Margin = new System.Windows.Forms.Padding(2);
             this.nameMatchCheckbox.Name = "nameMatchCheckbox";
             this.nameMatchCheckbox.Size = new System.Drawing.Size(92, 17);
             this.nameMatchCheckbox.TabIndex = 8;
@@ -274,7 +314,7 @@
             // 
             this.EnvVarsCombobox.FormattingEnabled = true;
             this.EnvVarsCombobox.Location = new System.Drawing.Point(313, 32);
-            this.EnvVarsCombobox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.EnvVarsCombobox.Margin = new System.Windows.Forms.Padding(2);
             this.EnvVarsCombobox.Name = "EnvVarsCombobox";
             this.EnvVarsCombobox.Size = new System.Drawing.Size(275, 21);
             this.EnvVarsCombobox.TabIndex = 3;
@@ -294,7 +334,7 @@
             // 
             this.SolutionsCombobox.FormattingEnabled = true;
             this.SolutionsCombobox.Location = new System.Drawing.Point(18, 32);
-            this.SolutionsCombobox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SolutionsCombobox.Margin = new System.Windows.Forms.Padding(2);
             this.SolutionsCombobox.Name = "SolutionsCombobox";
             this.SolutionsCombobox.Size = new System.Drawing.Size(275, 21);
             this.SolutionsCombobox.TabIndex = 0;
@@ -320,9 +360,9 @@
             this.groupBox2.Controls.Add(this.refresh1);
             this.groupBox2.Controls.Add(this.save1_btn);
             this.groupBox2.Location = new System.Drawing.Point(2, 101);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(402, 467);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
@@ -334,7 +374,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.type1.Enabled = false;
             this.type1.Location = new System.Drawing.Point(7, 212);
-            this.type1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.type1.Margin = new System.Windows.Forms.Padding(2);
             this.type1.Name = "type1";
             this.type1.Size = new System.Drawing.Size(392, 20);
             this.type1.TabIndex = 14;
@@ -355,7 +395,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.description1.Enabled = false;
             this.description1.Location = new System.Drawing.Point(6, 161);
-            this.description1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.description1.Margin = new System.Windows.Forms.Padding(2);
             this.description1.Name = "description1";
             this.description1.Size = new System.Drawing.Size(392, 20);
             this.description1.TabIndex = 12;
@@ -376,7 +416,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.currentValue1.Enabled = false;
             this.currentValue1.Location = new System.Drawing.Point(6, 370);
-            this.currentValue1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.currentValue1.Margin = new System.Windows.Forms.Padding(2);
             this.currentValue1.Multiline = true;
             this.currentValue1.Name = "currentValue1";
             this.currentValue1.Size = new System.Drawing.Size(392, 73);
@@ -398,7 +438,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.defaultValue1.Enabled = false;
             this.defaultValue1.Location = new System.Drawing.Point(7, 266);
-            this.defaultValue1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.defaultValue1.Margin = new System.Windows.Forms.Padding(2);
             this.defaultValue1.Multiline = true;
             this.defaultValue1.Name = "defaultValue1";
             this.defaultValue1.Size = new System.Drawing.Size(392, 70);
@@ -420,7 +460,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.displayName1.Enabled = false;
             this.displayName1.Location = new System.Drawing.Point(6, 109);
-            this.displayName1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.displayName1.Margin = new System.Windows.Forms.Padding(2);
             this.displayName1.Name = "displayName1";
             this.displayName1.Size = new System.Drawing.Size(392, 20);
             this.displayName1.TabIndex = 6;
@@ -431,7 +471,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.schemaName1.Enabled = false;
             this.schemaName1.Location = new System.Drawing.Point(6, 60);
-            this.schemaName1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.schemaName1.Margin = new System.Windows.Forms.Padding(2);
             this.schemaName1.Name = "schemaName1";
             this.schemaName1.Size = new System.Drawing.Size(392, 20);
             this.schemaName1.TabIndex = 5;
@@ -463,7 +503,7 @@
             this.refresh1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.refresh1.Image = ((System.Drawing.Image)(resources.GetObject("refresh1.Image")));
             this.refresh1.Location = new System.Drawing.Point(286, 15);
-            this.refresh1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.refresh1.Margin = new System.Windows.Forms.Padding(2);
             this.refresh1.Name = "refresh1";
             this.refresh1.Size = new System.Drawing.Size(53, 39);
             this.refresh1.TabIndex = 2;
@@ -476,7 +516,7 @@
             this.save1_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.save1_btn.Image = ((System.Drawing.Image)(resources.GetObject("save1_btn.Image")));
             this.save1_btn.Location = new System.Drawing.Point(343, 15);
-            this.save1_btn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.save1_btn.Margin = new System.Windows.Forms.Padding(2);
             this.save1_btn.Name = "save1_btn";
             this.save1_btn.Size = new System.Drawing.Size(53, 39);
             this.save1_btn.TabIndex = 0;
@@ -505,9 +545,9 @@
             this.groupBox3.Controls.Add(this.save2_btn);
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox3.Location = new System.Drawing.Point(408, 101);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox3.Size = new System.Drawing.Size(417, 467);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
@@ -519,7 +559,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.type2.Enabled = false;
             this.type2.Location = new System.Drawing.Point(8, 212);
-            this.type2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.type2.Margin = new System.Windows.Forms.Padding(2);
             this.type2.Name = "type2";
             this.type2.Size = new System.Drawing.Size(404, 20);
             this.type2.TabIndex = 18;
@@ -527,7 +567,7 @@
             // selectEnv2Btn
             // 
             this.selectEnv2Btn.Location = new System.Drawing.Point(6, 15);
-            this.selectEnv2Btn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.selectEnv2Btn.Margin = new System.Windows.Forms.Padding(2);
             this.selectEnv2Btn.Name = "selectEnv2Btn";
             this.selectEnv2Btn.Size = new System.Drawing.Size(53, 21);
             this.selectEnv2Btn.TabIndex = 11;
@@ -551,7 +591,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.currentValue2.Enabled = false;
             this.currentValue2.Location = new System.Drawing.Point(6, 371);
-            this.currentValue2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.currentValue2.Margin = new System.Windows.Forms.Padding(2);
             this.currentValue2.Multiline = true;
             this.currentValue2.Name = "currentValue2";
             this.currentValue2.Size = new System.Drawing.Size(407, 73);
@@ -563,7 +603,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.description2.Enabled = false;
             this.description2.Location = new System.Drawing.Point(7, 161);
-            this.description2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.description2.Margin = new System.Windows.Forms.Padding(2);
             this.description2.Name = "description2";
             this.description2.Size = new System.Drawing.Size(405, 20);
             this.description2.TabIndex = 16;
@@ -594,7 +634,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.defaultValue2.Enabled = false;
             this.defaultValue2.Location = new System.Drawing.Point(6, 266);
-            this.defaultValue2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.defaultValue2.Margin = new System.Windows.Forms.Padding(2);
             this.defaultValue2.Multiline = true;
             this.defaultValue2.Name = "defaultValue2";
             this.defaultValue2.Size = new System.Drawing.Size(407, 70);
@@ -616,7 +656,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.displayName2.Enabled = false;
             this.displayName2.Location = new System.Drawing.Point(6, 109);
-            this.displayName2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.displayName2.Margin = new System.Windows.Forms.Padding(2);
             this.displayName2.Name = "displayName2";
             this.displayName2.Size = new System.Drawing.Size(407, 20);
             this.displayName2.TabIndex = 6;
@@ -627,7 +667,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.schemaName2.Enabled = false;
             this.schemaName2.Location = new System.Drawing.Point(6, 60);
-            this.schemaName2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.schemaName2.Margin = new System.Windows.Forms.Padding(2);
             this.schemaName2.Name = "schemaName2";
             this.schemaName2.Size = new System.Drawing.Size(407, 20);
             this.schemaName2.TabIndex = 5;
@@ -658,7 +698,7 @@
             this.refresh2.Enabled = false;
             this.refresh2.Image = ((System.Drawing.Image)(resources.GetObject("refresh2.Image")));
             this.refresh2.Location = new System.Drawing.Point(301, 15);
-            this.refresh2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.refresh2.Margin = new System.Windows.Forms.Padding(2);
             this.refresh2.Name = "refresh2";
             this.refresh2.Size = new System.Drawing.Size(53, 39);
             this.refresh2.TabIndex = 2;
@@ -671,7 +711,7 @@
             this.save2_btn.Enabled = false;
             this.save2_btn.Image = ((System.Drawing.Image)(resources.GetObject("save2_btn.Image")));
             this.save2_btn.Location = new System.Drawing.Point(358, 15);
-            this.save2_btn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.save2_btn.Margin = new System.Windows.Forms.Padding(2);
             this.save2_btn.Name = "save2_btn";
             this.save2_btn.Size = new System.Drawing.Size(53, 39);
             this.save2_btn.TabIndex = 0;
@@ -700,9 +740,9 @@
             this.groupBox4.Controls.Add(this.refresh3);
             this.groupBox4.Controls.Add(this.save3_btn);
             this.groupBox4.Location = new System.Drawing.Point(829, 101);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox4.Size = new System.Drawing.Size(359, 467);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
@@ -714,7 +754,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.type3.Enabled = false;
             this.type3.Location = new System.Drawing.Point(7, 212);
-            this.type3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.type3.Margin = new System.Windows.Forms.Padding(2);
             this.type3.Name = "type3";
             this.type3.Size = new System.Drawing.Size(348, 20);
             this.type3.TabIndex = 22;
@@ -722,7 +762,7 @@
             // selectEnv3Btn
             // 
             this.selectEnv3Btn.Location = new System.Drawing.Point(4, 15);
-            this.selectEnv3Btn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.selectEnv3Btn.Margin = new System.Windows.Forms.Padding(2);
             this.selectEnv3Btn.Name = "selectEnv3Btn";
             this.selectEnv3Btn.Size = new System.Drawing.Size(53, 21);
             this.selectEnv3Btn.TabIndex = 12;
@@ -746,7 +786,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.currentValue3.Enabled = false;
             this.currentValue3.Location = new System.Drawing.Point(5, 371);
-            this.currentValue3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.currentValue3.Margin = new System.Windows.Forms.Padding(2);
             this.currentValue3.Multiline = true;
             this.currentValue3.Name = "currentValue3";
             this.currentValue3.Size = new System.Drawing.Size(352, 73);
@@ -758,7 +798,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.description3.Enabled = false;
             this.description3.Location = new System.Drawing.Point(7, 161);
-            this.description3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.description3.Margin = new System.Windows.Forms.Padding(2);
             this.description3.Name = "description3";
             this.description3.Size = new System.Drawing.Size(348, 20);
             this.description3.TabIndex = 20;
@@ -789,7 +829,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.defaultValue3.Enabled = false;
             this.defaultValue3.Location = new System.Drawing.Point(7, 266);
-            this.defaultValue3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.defaultValue3.Margin = new System.Windows.Forms.Padding(2);
             this.defaultValue3.Multiline = true;
             this.defaultValue3.Name = "defaultValue3";
             this.defaultValue3.Size = new System.Drawing.Size(349, 70);
@@ -811,7 +851,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.displayName3.Enabled = false;
             this.displayName3.Location = new System.Drawing.Point(6, 109);
-            this.displayName3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.displayName3.Margin = new System.Windows.Forms.Padding(2);
             this.displayName3.Name = "displayName3";
             this.displayName3.Size = new System.Drawing.Size(349, 20);
             this.displayName3.TabIndex = 6;
@@ -822,7 +862,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.schemaName3.Enabled = false;
             this.schemaName3.Location = new System.Drawing.Point(6, 60);
-            this.schemaName3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.schemaName3.Margin = new System.Windows.Forms.Padding(2);
             this.schemaName3.Name = "schemaName3";
             this.schemaName3.Size = new System.Drawing.Size(349, 20);
             this.schemaName3.TabIndex = 5;
@@ -853,7 +893,7 @@
             this.refresh3.Enabled = false;
             this.refresh3.Image = ((System.Drawing.Image)(resources.GetObject("refresh3.Image")));
             this.refresh3.Location = new System.Drawing.Point(244, 15);
-            this.refresh3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.refresh3.Margin = new System.Windows.Forms.Padding(2);
             this.refresh3.Name = "refresh3";
             this.refresh3.Size = new System.Drawing.Size(53, 39);
             this.refresh3.TabIndex = 2;
@@ -866,21 +906,12 @@
             this.save3_btn.Enabled = false;
             this.save3_btn.Image = ((System.Drawing.Image)(resources.GetObject("save3_btn.Image")));
             this.save3_btn.Location = new System.Drawing.Point(301, 15);
-            this.save3_btn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.save3_btn.Margin = new System.Windows.Forms.Padding(2);
             this.save3_btn.Name = "save3_btn";
             this.save3_btn.Size = new System.Drawing.Size(53, 39);
             this.save3_btn.TabIndex = 0;
             this.save3_btn.UseVisualStyleBackColor = true;
             this.save3_btn.Click += new System.EventHandler(this.save3_btn_Click);
-            // 
-            // exportAllBtn
-            // 
-            this.exportAllBtn.Image = ((System.Drawing.Image)(resources.GetObject("exportAllBtn.Image")));
-            this.exportAllBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.exportAllBtn.Name = "exportAllBtn";
-            this.exportAllBtn.Size = new System.Drawing.Size(84, 28);
-            this.exportAllBtn.Text = "Export all";
-            this.exportAllBtn.Click += new System.EventHandler(this.exportAllBtn_Click);
             // 
             // EnvVarCheckerControl
             // 
@@ -979,5 +1010,8 @@
         private System.Windows.Forms.ToolStripButton compareBtn;
         private System.Windows.Forms.ToolStripButton exportBtn;
         private System.Windows.Forms.ToolStripButton exportAllBtn;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
+        private System.Windows.Forms.ToolStripMenuItem selectedVariableToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem allVariablesToolStripMenuItem1;
     }
 }

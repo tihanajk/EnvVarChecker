@@ -1007,7 +1007,5 @@ namespace EnvVarChecker
             AutosizeColumns(sheet, 6);
 
         }
-
-
     }
 }
