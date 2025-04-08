@@ -813,7 +813,7 @@ namespace EnvVarChecker
             valueRow.CreateCell(4).SetCellValue(var.DefaultValue);
             valueRow.CreateCell(5).SetCellValue(var.CurrentValue);
 
-            AutosizeColumns(sheet, 6);
+            //AutosizeColumns(sheet, 6);
         }
 
         private void exportBtn_Click(object sender, EventArgs e)
@@ -945,8 +945,9 @@ namespace EnvVarChecker
                     }
                 }
 
-                // Set the column width (adding some padding)
-                sheet.SetColumnWidth(colIndex, (maxLength + 2) * 256);
+                int columnWidth = (maxLength + 2) * 256;
+                if (columnWidth > 65535) columnWidth = 65535; // Maximum column width
+                sheet.SetColumnWidth(colIndex, columnWidth);
             }
         }
 
@@ -1006,7 +1007,7 @@ namespace EnvVarChecker
 
             }
 
-            AutosizeColumns(sheet, 6);
+            //AutosizeColumns(sheet, 6);
 
         }
     }
