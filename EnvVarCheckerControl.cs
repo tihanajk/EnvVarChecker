@@ -87,6 +87,8 @@ namespace EnvVarChecker
 
             groupBox2.Text = ENV1.ConnectionName;
 
+            exportDropdownBtn.Enabled = true;
+
             ExecuteMethod(GetSolutions);
 
             if (mySettings != null && detail != null)
@@ -767,7 +769,7 @@ namespace EnvVarChecker
         {
             IWorkbook workbook = new XSSFWorkbook();
 
-            WriteEnvVarInfo(workbook, EnvVar1_Info, ENV1.ConnectionName);
+            if (ENV1 != null) WriteEnvVarInfo(workbook, EnvVar1_Info, ENV1.ConnectionName);
 
             if (ENV2 != null) WriteEnvVarInfo(workbook, EnvVar2_Info, ENV2.ConnectionName);
             if (ENV3 != null) WriteEnvVarInfo(workbook, EnvVar3_Info, ENV3.ConnectionName);
@@ -846,7 +848,7 @@ namespace EnvVarChecker
 
                         DialogResult confirmResult = MessageBox.Show("Do you want to open the file?", "Excel file", MessageBoxButtons.YesNo);
 
-                        if(confirmResult == DialogResult.Yes)
+                        if (confirmResult == DialogResult.Yes)
                         {
                             System.Diagnostics.Process.Start(saveFileDialog.FileName);
                         }

@@ -41,7 +41,7 @@
             this.compareBtn = new System.Windows.Forms.ToolStripButton();
             this.exportAllBtn = new System.Windows.Forms.ToolStripButton();
             this.exportBtn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.exportDropdownBtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.selectedVariableToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.allVariablesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -120,7 +120,7 @@
             this.compareBtn,
             this.exportAllBtn,
             this.exportBtn,
-            this.toolStripDropDownButton2});
+            this.exportDropdownBtn});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
             this.toolStripMenu.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -218,16 +218,17 @@
             this.exportBtn.Visible = false;
             this.exportBtn.Click += new System.EventHandler(this.exportBtn_Click);
             // 
-            // toolStripDropDownButton2
+            // exportDropdownBtn
             // 
-            this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportDropdownBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.selectedVariableToolStripMenuItem1,
             this.allVariablesToolStripMenuItem1});
-            this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
-            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            this.toolStripDropDownButton2.Size = new System.Drawing.Size(78, 28);
-            this.toolStripDropDownButton2.Text = "Export";
+            this.exportDropdownBtn.Enabled = false;
+            this.exportDropdownBtn.Image = ((System.Drawing.Image)(resources.GetObject("exportDropdownBtn.Image")));
+            this.exportDropdownBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.exportDropdownBtn.Name = "exportDropdownBtn";
+            this.exportDropdownBtn.Size = new System.Drawing.Size(78, 28);
+            this.exportDropdownBtn.Text = "Export";
             // 
             // selectedVariableToolStripMenuItem1
             // 
@@ -1010,7 +1011,7 @@
         private System.Windows.Forms.ToolStripButton compareBtn;
         private System.Windows.Forms.ToolStripButton exportBtn;
         private System.Windows.Forms.ToolStripButton exportAllBtn;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
+        private System.Windows.Forms.ToolStripDropDownButton exportDropdownBtn;
         private System.Windows.Forms.ToolStripMenuItem selectedVariableToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem allVariablesToolStripMenuItem1;
     }
