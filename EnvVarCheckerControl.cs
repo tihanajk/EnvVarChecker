@@ -1,21 +1,14 @@
 ﻿using McTools.Xrm.Connection;
 using McTools.Xrm.Connection.WinForms;
-using Microsoft.Win32;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
-using NPOI.SS.Formula.Functions;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.Streaming.Values;
-using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Web.Services.Description;
 using System.Windows.Forms;
-using WeifenLuo.WinFormsUI.ThemeVS2012;
 using XrmToolBox.Extensibility;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace EnvVarChecker
 {
@@ -767,58 +760,43 @@ namespace EnvVarChecker
 
         private void PopulateExcel(string fileName)
         {
-            IWorkbook workbook = new XSSFWorkbook();
+            var excelApp = new Excel.Application();
+            excelApp.Visible = false;
+            Excel.Workbook workbook = excelApp.Workbooks.Add();
 
             if (ENV1 != null) WriteEnvVarInfo(workbook, EnvVar1_Info, ENV1.ConnectionName);
-
             if (ENV2 != null) WriteEnvVarInfo(workbook, EnvVar2_Info, ENV2.ConnectionName);
             if (ENV3 != null) WriteEnvVarInfo(workbook, EnvVar3_Info, ENV3.ConnectionName);
 
-            using (FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write))
-            {
-                workbook.Write(fs);
-            }
+            workbook.SaveAs(fileName);
+            workbook.Close();
+            excelApp.Quit();
         }
 
-        private void ColorRowCells(IWorkbook workbook, IRow row, short colorIndex, short textColorIndex)
+
+        private void WriteEnvVarInfo(Excel.Workbook workbook, EnvVarInfo var, string envName)
         {
-            ICellStyle headerStyle = workbook.CreateCellStyle();
-            // Set background color
-            headerStyle.FillForegroundColor = colorIndex;
-            headerStyle.FillPattern = FillPattern.SolidForeground;
+            Excel.Worksheet sheet = workbook.Sheets.Add();
+            sheet.Name = envName.Length > 31 ? envName.Substring(0, 31) : envName;
 
-            IFont font = workbook.CreateFont();
-            font.Color = textColorIndex;  // Set the text color (font color)
-            headerStyle.SetFont(font);
-
-            foreach (ICell cell in row.Cells)
-            {
-                cell.CellStyle = headerStyle;
-            }
-        }
-
-        private void WriteEnvVarInfo(IWorkbook workbook, EnvVarInfo var, string envName)
-        {
-            ISheet sheet = workbook.CreateSheet(envName);
-
-            AddHeaderRow(workbook, sheet);
+            AddHeaderRow(sheet);
 
             if (var == null) return;
 
-            IRow valueRow = sheet.CreateRow(1);
-            valueRow.CreateCell(0).SetCellValue(var.SchemaName);
-            valueRow.CreateCell(1).SetCellValue(var.DisplayName);
-            valueRow.CreateCell(2).SetCellValue(var.Description);
-            valueRow.CreateCell(3).SetCellValue(var.DataType_formatted);
-            valueRow.CreateCell(4).SetCellValue(var.DefaultValue);
-            valueRow.CreateCell(5).SetCellValue(var.CurrentValue);
+            Excel.Range row = sheet.Range["A2", "F2"];
+            row[1, 1].Value = var.SchemaName;
+            row[1, 2].Value = var.DisplayName;
+            row[1, 3].Value = var.Description;
+            row[1, 4].Value = var.DataType_formatted;
+            row[1, 5].Value = var.DefaultValue;
+            row[1, 6].Value = var.CurrentValue;
 
-            //AutosizeColumns(sheet, 6);
+            AutosizeColumns(sheet, 6);
         }
 
         private void exportBtn_Click(object sender, EventArgs e)
         {
-            var saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            var saveFileDialog = new SaveFileDialog();
 
             saveFileDialog.Filter = "Excel files|*.xlsx";
             saveFileDialog.FilterIndex = 2;
@@ -827,7 +805,6 @@ namespace EnvVarChecker
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-
                 WorkAsync(new WorkAsyncInfo()
                 {
                     Message = "Populating excel",
@@ -835,16 +812,16 @@ namespace EnvVarChecker
                     Work = (worker, args) =>
                     {
                         PopulateExcel(saveFileDialog.FileName);
-
                     },
                     PostWorkCallBack = (args) =>
                     {
                         if (args.Error != null)
                         {
                             MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                         }
 
-                        MessageBox.Show("Finished");
+                        MessageBox.Show("Finished :)");
 
                         DialogResult confirmResult = MessageBox.Show("Do you want to open the file?", "Excel file", MessageBoxButtons.YesNo);
 
@@ -860,7 +837,7 @@ namespace EnvVarChecker
 
         private void exportAllBtn_Click(object sender, EventArgs e)
         {
-            var saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            var saveFileDialog = new SaveFileDialog();
 
             saveFileDialog.Filter = "Excel files|*.xlsx";
             saveFileDialog.FilterIndex = 2;
@@ -869,7 +846,6 @@ namespace EnvVarChecker
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-
                 WorkAsync(new WorkAsyncInfo()
                 {
                     Message = "Populating excel",
@@ -877,16 +853,16 @@ namespace EnvVarChecker
                     Work = (worker, args) =>
                     {
                         ExecuteMethod(() => PopulateExcel_all(saveFileDialog.FileName));
-
                     },
                     PostWorkCallBack = (args) =>
                     {
                         if (args.Error != null)
                         {
                             MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                         }
 
-                        MessageBox.Show("Finished");
+                        MessageBox.Show("Finished :)");
 
                         DialogResult confirmResult = MessageBox.Show("Do you want to open the file?", "Excel file", MessageBoxButtons.YesNo);
 
@@ -902,60 +878,51 @@ namespace EnvVarChecker
 
         private void PopulateExcel_all(string fileName)
         {
-            IWorkbook workbook = new XSSFWorkbook();
+            var excelApp = new Excel.Application();
+            excelApp.Visible = false;
+            Excel.Workbook workbook = excelApp.Workbooks.Add();
 
             if (ENV1 != null) ExecuteMethod(() => WriteAllEnvVars(Service, ENV1.ConnectionName, workbook));
 
             if (ENV2 != null) ExecuteMethod(() => WriteAllEnvVars(SERVICE2, ENV2.ConnectionName, workbook));
             if (ENV3 != null) ExecuteMethod(() => WriteAllEnvVars(SERVICE3, ENV3.ConnectionName, workbook));
 
-            using (FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+            workbook.SaveAs(fileName);
+            workbook.Close();
+            excelApp.Quit();
+        }
+
+        private void AddHeaderRow(Excel.Worksheet sheet)
+        {
+            Excel.Range header = sheet.Range["A1", "F1"];
+            string[] headers = { "SCHEMA NAME", "DISPLAY NAME", "DESCRIPTION", "TYPE", "DEFAULT VALUE", "VALUE" };
+
+            for (int i = 0; i < headers.Length; i++)
             {
-                workbook.Write(fs);
+                sheet.Cells[1, i + 1] = headers[i];
+            }
+
+            header.Font.Bold = true;
+
+            var darkBlue = ColorTranslator.ToOle(Color.FromArgb(17, 94, 163));
+            header.Interior.Color = darkBlue;
+            header.Font.Color = ColorTranslator.ToOle(Color.White);
+        }
+
+        private void AutosizeColumns(Excel.Worksheet sheet, int columnsCount)
+        {
+            for (int i = 1; i <= columnsCount; i++)
+            {
+                sheet.Columns[i].AutoFit();
             }
         }
 
-        private void AddHeaderRow(IWorkbook workbook, ISheet sheet)
+        private void WriteAllEnvVars(IOrganizationService service, string envName, Excel.Workbook workbook)
         {
-            IRow envVarInfoRow = sheet.CreateRow(0);
-            envVarInfoRow.CreateCell(0).SetCellValue("Schema name".ToUpper());
-            envVarInfoRow.CreateCell(1).SetCellValue("Display name".ToUpper());
-            envVarInfoRow.CreateCell(2).SetCellValue("Description".ToUpper());
-            envVarInfoRow.CreateCell(3).SetCellValue("Type".ToUpper());
-            envVarInfoRow.CreateCell(4).SetCellValue("Default value".ToUpper());
-            envVarInfoRow.CreateCell(5).SetCellValue("Value".ToUpper());
+            Excel.Worksheet sheet = workbook.Sheets.Add();
+            sheet.Name = envName.Length > 31 ? envName.Substring(0, 31) : envName;
 
-            ColorRowCells(workbook, envVarInfoRow, IndexedColors.Indigo.Index, IndexedColors.White.Index);
-        }
-
-        private void AutosizeColumns(ISheet sheet, int columnsCount)
-        {
-            for (int colIndex = 0; colIndex < columnsCount; colIndex++)  // Loop through columns (adjust 6 if needed)
-            {
-                int maxLength = 0;
-
-                // Find the maximum length of content in the column
-                for (int rowIndex = 0; rowIndex < sheet.PhysicalNumberOfRows; rowIndex++)
-                {
-                    ICell cell = sheet.GetRow(rowIndex).GetCell(colIndex);
-                    if (cell != null)
-                    {
-                        // Get the length of the cell content
-                        maxLength = Math.Max(maxLength, cell.ToString().Length);
-                    }
-                }
-
-                int columnWidth = (maxLength + 2) * 256;
-                if (columnWidth > 65535) columnWidth = 65535; // Maximum column width
-                sheet.SetColumnWidth(colIndex, columnWidth);
-            }
-        }
-
-        private void WriteAllEnvVars(IOrganizationService service, string envName, IWorkbook workbook)
-        {
-            ISheet sheet = workbook.CreateSheet(envName);
-
-            AddHeaderRow(workbook, sheet);
+            AddHeaderRow(sheet);
 
             var fetchXml = $@"<fetch>
                                 <entity name='environmentvariabledefinition'>
@@ -973,41 +940,57 @@ namespace EnvVarChecker
                                 </fetch>";
             var result = service.RetrieveMultiple(new FetchExpression(fetchXml));
 
-            var i = 0;
+            var row = 1;
+            
 
             if (result == null) return;
 
+
+            var lightBlue = ColorTranslator.ToOle(Color.FromArgb(154, 191, 220));
             foreach (var varInfo in result.Entities)
             {
-                ++i;
-                IRow varInfoRow = sheet.CreateRow(i);
-                varInfoRow.CreateCell(0).SetCellValue((string)varInfo["schemaname"]);
+                ++row;
+                var column = 0;
 
-                if (varInfo.Contains("displayname")) varInfoRow.CreateCell(1).SetCellValue((string)varInfo["displayname"]);
-                else varInfoRow.CreateCell(1).SetBlank();
+                ++column;
+                sheet.Cells[row, column] = varInfo["schemaname"];
 
-                if (varInfo.Contains("description")) varInfoRow.CreateCell(2).SetCellValue((string)varInfo["description"]);
-                else varInfoRow.CreateCell(2).SetBlank();
+                ++column;
+                if (varInfo.Contains("displayname")) sheet.Cells[row, column] = ((string)varInfo["displayname"]);
+                else sheet.Cells[row, column] = "";
 
-                if (varInfo.Contains("type")) varInfoRow.CreateCell(3).SetCellValue(varInfo.FormattedValues["type"]);
-                else varInfoRow.CreateCell(3).SetBlank();
+                ++column;
+                if (varInfo.Contains("description")) sheet.Cells[row, column] = ((string)varInfo["description"]);
+                else sheet.Cells[row, column] = "";
 
-                if (varInfo.Contains("defaultvalue")) varInfoRow.CreateCell(4).SetCellValue((string)varInfo["defaultvalue"]);
-                else varInfoRow.CreateCell(4).SetBlank();
+                ++column;
+                if (varInfo.Contains("type")) sheet.Cells[row, column] = (varInfo.FormattedValues["type"]);
+                else sheet.Cells[row, column] = "";
 
+                ++column;
+                if (varInfo.Contains("defaultvalue")) sheet.Cells[row, column] = (string)varInfo["defaultvalue"];
+                else sheet.Cells[row, column] = "";
+
+                ++column;
                 if (varInfo.Contains("v.value"))
                 {
                     var value = ((AliasedValue)varInfo["v.value"]).Value.ToString();
 
-                    varInfoRow.CreateCell(5).SetCellValue(value);
+                    sheet.Cells[row, column] = value;
                 }
-                else varInfoRow.CreateCell(5).SetBlank();
+                else sheet.Cells[row, column] = "";
 
-                if (i % 2 == 0) ColorRowCells(workbook, varInfoRow, IndexedColors.PaleBlue.Index, IndexedColors.Black.Index);
+
+                if (row % 2 == 0)
+                {
+                    Excel.Range rowRange = sheet.Range[$"A{row}", $"F{row}"];
+       
+                    rowRange.Interior.Color = lightBlue;
+                }
 
             }
 
-            //AutosizeColumns(sheet, 6);
+            AutosizeColumns(sheet, 6);
 
         }
     }
