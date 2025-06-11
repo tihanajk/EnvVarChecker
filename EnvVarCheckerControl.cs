@@ -740,12 +740,12 @@ namespace EnvVarChecker
             if (EnvVar2_Info == null && EnvVar3_Info == null) return;
 
             // compare env 2 to env 1
-            defaultValue2.ForeColor = EnvVar1_Info.DefaultValue != EnvVar2_Info.DefaultValue ? Color.Red : Color.Green;
-            currentValue2.ForeColor = EnvVar1_Info.CurrentValue != EnvVar2_Info.CurrentValue ? Color.Red : Color.Green;
+            defaultValue2.ForeColor = EnvVar1_Info.DefaultValue != EnvVar2_Info?.DefaultValue ? Color.Red : Color.Green;
+            currentValue2.ForeColor = EnvVar1_Info.CurrentValue != EnvVar2_Info?.CurrentValue ? Color.Red : Color.Green;
 
             // compare env 3 to env 1
-            defaultValue3.ForeColor = EnvVar1_Info.DefaultValue != EnvVar3_Info.DefaultValue ? Color.Red : Color.Green;
-            currentValue3.ForeColor = EnvVar1_Info.CurrentValue != EnvVar3_Info.CurrentValue ? Color.Red : Color.Green;
+            defaultValue3.ForeColor = EnvVar1_Info.DefaultValue != EnvVar3_Info?.DefaultValue ? Color.Red : Color.Green;
+            currentValue3.ForeColor = EnvVar1_Info.CurrentValue != EnvVar3_Info?.CurrentValue ? Color.Red : Color.Green;
 
         }
 
